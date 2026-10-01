@@ -48,12 +48,12 @@ Este portafolio está optimizado para importarse directamente en **Vercel** con 
 git add .
 git commit -m "feat: portfolio irvin dev listo para produccion"
 git branch -M main
-git remote add origin https://github.com/TU_USUARIO/Portafolio.git
+git remote add origin https://github.com/Irvin-Osvaldo-Galvez-Romero0/Portafolio.git
 git push -u origin main
 ```
 
 ### 2. Importar en Vercel
-1. Ingresa a [vercel.com](https://vercel.com) e inicia sesión con tu GitHub.
+1. Ingresa a [vercel.com](https://vercel.com) e inicia sesión con tu cuenta de GitHub.
 2. Haz clic en **"Add New..."** ➔ **"Project"**.
 3. Selecciona tu repositorio `Portafolio` y haz clic en **Import**.
 4. Vercel detectará automáticamente la configuración de Next.js (Build Command: `next build`, Output Directory: `.next`).
@@ -64,7 +64,7 @@ En la sección **Environment Variables** de Vercel antes de desplegar, añade:
 | Variable | Valor | Descripción |
 | :--- | :--- | :--- |
 | `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` | *(Tu Access Key)* | Obtén tu clave gratis en [web3forms.com](https://web3forms.com) (los correos llegarán directo a tu bandeja). |
-| `NEXT_PUBLIC_CONTACT_EMAIL` | `tu_correo@ejemplo.com` | Tu correo electrónico donde deseas recibir las propuestas. |
+| `NEXT_PUBLIC_CONTACT_EMAIL` | `irvinosvaldo.gr@gmail.com` | Tu correo electrónico donde recibirás las propuestas. |
 | `RESEND_API_KEY` *(Opcional)* | `re_...` | Si prefieres usar Resend en lugar de Web3Forms. |
 
 4. Presiona **Deploy**. ¡Tu portafolio estará en vivo en segundos con certificado SSL gratuito y CDN global!

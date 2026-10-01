@@ -142,10 +142,10 @@ export default function ContactSection() {
                   <div>
                     <div style={{ fontSize: '0.78rem', color: '#64748b' }}>Correo Electrónico</div>
                     <a
-                      href="mailto:irvindev.contact@gmail.com"
+                      href="mailto:irvinosvaldo.gr@gmail.com"
                       style={{ fontSize: '0.95rem', color: '#f8fafc', fontWeight: 600, textDecoration: 'none' }}
                     >
-                      irvindev.contact@gmail.com
+                      irvinosvaldo.gr@gmail.com
                     </a>
                   </div>
                 </div>

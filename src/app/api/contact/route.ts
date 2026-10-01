@@ -31,7 +31,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const recipientEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'irvindev.contact@gmail.com';
+    const recipientEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'irvinosvaldo.gr@gmail.com';
     const web3formsKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
     const resendApiKey = process.env.RESEND_API_KEY;
 

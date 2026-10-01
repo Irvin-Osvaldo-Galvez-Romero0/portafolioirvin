@@ -58,7 +58,7 @@ export default function Hero() {
                 <span>Iniciar Proyecto / Contacto</span>
               </Link>
               <a
-                href="https://github.com/Irvin-Dev"
+                href="https://github.com/Irvin-Osvaldo-Galvez-Romero0"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-outline-cyan"

@@ -68,7 +68,7 @@ export default function Footer() {
           {/* Social and Top */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <a
-              href="https://github.com/Irvin-Dev"
+              href="https://github.com/Irvin-Osvaldo-Galvez-Romero0"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-secondary"

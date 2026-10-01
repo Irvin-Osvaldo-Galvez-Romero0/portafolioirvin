@@ -19,21 +19,21 @@ export interface Project {
 
 export const PROJECTS_DATA: Project[] = [
   {
-    id: 'pos-resiliente',
-    title: 'POS - Punto de Venta Resiliente Offline-First',
+    id: 'sistemas-pos',
+    title: 'Sistemas-POS: Punto de Venta Resiliente',
     category: 'systems',
     categoryLabel: 'Sistemas Resilientes',
-    subtitle: 'Arquitectura transaccional de caja e inventario con tolerancia a desconexión y hardware ráfaga',
-    description: 'Sistema comercial de alta concurrencia diseñado con Residuality Theory para operar 100% desconectado, soportar ráfagas de lectores HID y gestionar catálogos de hasta 50,000 SKUs sin degradación.',
-    fullDescription: 'Desarrollado para entornos de retail donde un corte de luz o fallo de internet no puede detener la facturación. Integra persistencia local con IndexedDB/SQLite, motor de sincronización idempotente en segundo plano, aislamiento CSS para impresión térmica directa de tickets (ESC/POS) y suites de stress testing validadas en hardware táctil físico.',
+    subtitle: 'Punto de venta personalizado con tolerancia a desconexión, ráfagas HID y 50k SKUs',
+    description: 'Sistema comercial transaccional diseñado con Residuality Theory. Opera 100% desconectado mediante persistencia local, soporta lectores de código de barras en ráfaga e integra aislamiento térmico para tickets.',
+    fullDescription: 'Desarrollado para entornos comerciales de alta exigencia donde un fallo de red no puede suspender la facturación. Integra persistencia local con IndexedDB/SQLite, sincronización de stock asíncrona, sanitización de tickets térmicos sin interferencia de UI y suites de stress testing en dispositivos táctiles físicos.',
     keyHighlights: [
-      'Resiliencia probada: hasta 50,000 SKUs y 5,000 transacciones masivas sin cuellos de botella',
-      'Aislamiento total de corte de red: cobro y almacenamiento en caché local sin abortar transacciones',
-      'Módulo de impresión térmica desacoplado: tickets limpios sin elementos de UI ni márgenes espurios',
-      'Validación de calidad exhaustiva con Google Lighthouse 100 y tests Chromium CDP'
+      'Resiliencia probada: gestión de 50,000 SKUs y 5,000 transacciones masivas sin cuellos de botella',
+      'Aislamiento de red: registro y cobro en caché local sin abortar ventas ante caídas de conexión',
+      'Módulo de impresión térmica desacoplado: tickets limpios sin elementos visuales del navegador',
+      'Validación de calidad estricta con Google Lighthouse y pruebas E2E en Chromium CDP'
     ],
     technologies: ['TypeScript', 'React 19', 'IndexedDB', 'SQLite', 'Residuality Theory', 'Tailored CSS', 'Chromium CDP'],
-    githubUrl: 'https://github.com/Irvin-Dev/POS',
+    githubUrl: 'https://github.com/Irvin-Osvaldo-Galvez-Romero0/Sistemas-POS',
     demoUrl: '#',
     status: 'Producción',
     stats: [
@@ -42,9 +42,9 @@ export const PROJECTS_DATA: Project[] = [
       { label: 'Tiempo de Cobro', value: '< 200ms' }
     ],
     stressorsMitigated: [
-      'Corte de conexión eléctrica/red durante checkout',
+      'Corte súbito de conexión eléctrica/red durante checkout',
       'Ráfagas no controladas de lectores de código de barras HID',
-      'Corrupción de caché local ante caídas repentinas del navegador'
+      'Corrupción de caché local ante cierres forzados del navegador'
     ],
     featured: true,
     accentColor: 'linear-gradient(135deg, #10b981 0%, #059669 100%)'
@@ -55,30 +55,92 @@ export const PROJECTS_DATA: Project[] = [
     category: 'pwa-fullstack',
     categoryLabel: 'PWAs & Full-Stack',
     subtitle: 'Plataforma académica universitaria offline-first con integración en vivo a la API institucional SIIA',
-    description: 'Aplicación Web Progresiva para comunidad universitaria con desacoplamiento estricto de autenticación (NIP / Contraseña), consulta de retícula académica en vivo, kardex de calificaciones y cumplimiento ISO 25010.',
-    fullDescription: 'Reemplaza sistemas web monolíticos tradicionales por una experiencia fluida e instalable en dispositivos móviles y de escritorio. Cuenta con un Backend-for-Frontend (BFF) en Express que se conecta de forma segura a los endpoints oficiales de autenticación y carga académica del SIIA TESChi, mitigando bloqueos y permitiendo navegación sin conexión de historiales académicos.',
+    description: 'Aplicación Web Progresiva para la comunidad estudiantil del TESChi con desacoplamiento total de credenciales (acceso por NIP o Contraseña), consulta de retícula académica y kardex en vivo.',
+    fullDescription: 'Moderniza los sistemas escolares tradicionales brindando una experiencia fluida e instalable. Dispone de un Backend-for-Frontend (BFF) en Express que se conecta de forma segura a la API oficial del SIIA TESChi (/login.ashx y /nip.ashx), permitiendo navegación offline de materias y calificaciones mediante Service Workers.',
     keyHighlights: [
       'Arquitectura BFF en Express con sanitización y reintentos adaptativos contra API legacy',
       'Desacoplamiento total: login independiente por NIP de 4 dígitos o contraseña institucional',
       'Caché reactiva con Service Workers para visualización de kardex y horarios sin internet',
-      'Modelado de calidad formal bajo el estándar internacional ISO/IEC 25010 y C4 Model'
+      'Cumplimiento de estándares internacionales ISO/IEC 25010 y C4 Model'
     ],
     technologies: ['React 19', 'TypeScript', 'Node.js', 'Express BFF', 'Service Workers', 'Vite', 'ISO 25010'],
-    githubUrl: 'https://github.com/Irvin-Dev/PWA-Modulo-Escolar-TESChi',
+    githubUrl: 'https://github.com/Irvin-Osvaldo-Galvez-Romero0/PWA-Modulo-Escolar-TESChi',
     demoUrl: '#',
     status: 'Producción',
     stats: [
-      { label: 'Usuarios Potenciales', value: '8,000+' },
+      { label: 'Comunidad Universitaria', value: '8,000+' },
       { label: 'Puntuación Lighthouse', value: '98/100' },
-      { label: 'Disponibilidad Offline', value: 'PWA Cache' }
+      { label: 'Modo Offline', value: 'PWA Cache' }
     ],
     stressorsMitigated: [
-      'Saturación de servidores universitarios durante períodos de reinscripción',
-      'Latencia elevada en redes móviles 3G/4G del campus',
-      'Incompatibilidad con credenciales híbridas (NIP vs Contraseña alfanumérica)'
+      'Saturación de servidores universitarios en períodos de reinscripción masiva',
+      'Latencia elevada en redes móviles 3G/4G dentro del campus',
+      'Incompatibilidad con credenciales híbridas (NIP institucional vs contraseña)'
     ],
     featured: true,
     accentColor: 'linear-gradient(135deg, #6366f1 0%, #4338ca 100%)'
+  },
+  {
+    id: 'chatbot-etfs-n8n',
+    title: 'chatbotETFsN8N: Inteligencia Financiera Automatizada',
+    category: 'ai-automation',
+    categoryLabel: 'Automatización & IA',
+    subtitle: 'Chatbot analítico de ETFs con proyecciones cuantitativas a 7, 30, 90 días y 1 año',
+    description: 'Automatización con n8n que monitorea carteras de fondos cotizados (ETFs), proyecta tendencias temporales y alerta automáticamente sobre caídas de precio del 2% y repuntes del 5%.',
+    fullDescription: 'Solución algorítmica para inversionistas que automatiza el análisis técnico de ETFs. Orquesta flujos de trabajo en n8n conectados a APIs financieras en vivo, calcula métricas predictivas multitemporales y envía notificaciones instantáneas para la toma informada de decisiones.',
+    keyHighlights: [
+      'Proyecciones cuantitativas en cuatro horizontes temporales: 7, 30, 90 días y 1 año',
+      'Sistema de alertas de riesgo: notificación ante caídas de -2% y proyecciones de repunte de +5%',
+      'Workflows en n8n con manejo de errores, reintentos y persistencia en base de datos',
+      'Consultas interactivas con procesamiento de lenguaje natural y resúmenes ejecutivos'
+    ],
+    technologies: ['n8n', 'Python', 'Node.js', 'Telegram Bot API', 'Financial APIs', 'Docker', 'PostgreSQL'],
+    githubUrl: 'https://github.com/Irvin-Osvaldo-Galvez-Romero0/chatbotETFsN8N',
+    demoUrl: '#',
+    status: 'Producción',
+    stats: [
+      { label: 'Horizontes de Análisis', value: '4 Plazos' },
+      { label: 'Sensibilidad de Alerta', value: '2% - 5%' },
+      { label: 'Disponibilidad Flujos', value: '99.9%' }
+    ],
+    stressorsMitigated: [
+      'Volatilidad repentina de mercados sin monitoreo activo humano',
+      'Sobrecarga de llamadas a APIs financieras con rate limiting',
+      'Fallos transitorios en webhooks de notificación'
+    ],
+    featured: true,
+    accentColor: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)'
+  },
+  {
+    id: 'chatbot-n8n-trading',
+    title: 'ChatBotN8NTrading: Asistente de Trading Algorítmico',
+    category: 'ai-automation',
+    categoryLabel: 'Automatización & IA',
+    subtitle: 'Bot de asistencia de trading con n8n basado en la metodología analítica de Bard.FX',
+    description: 'Asistente de trading algorítmico que analiza el comportamiento del mercado y prevé movimientos estratégicos aplicando las reglas operativas de Bard.FX en tiempo real.',
+    fullDescription: 'Diseñado para operadores financieros que buscan disciplina y automatización en sus análisis. Integra flujos inteligentes en n8n para identificar patrones gráficos, zonas de oferta/demanda y calcular la relación riesgo-beneficio antes de emitir alertas de entrada.',
+    keyHighlights: [
+      'Implementación de la estrategia analítica de trading Bard.FX en flujos n8n',
+      'Previsión automatizada de movimientos en pares de divisas y materias primas',
+      'Alertas tempranas de confirmación de tendencia y gestión de riesgo',
+      'Integración con plataformas de mensajería para alertas operativas en directo'
+    ],
+    technologies: ['n8n', 'TypeScript', 'Node.js', 'Trading APIs', 'Telegram Bot', 'Algorithmic Trading'],
+    githubUrl: 'https://github.com/Irvin-Osvaldo-Galvez-Romero0/ChatBotN8NTrading',
+    demoUrl: '#',
+    status: 'Producción',
+    stats: [
+      { label: 'Metodología', value: 'Bard.FX' },
+      { label: 'Latencia de Señal', value: '< 1.5s' },
+      { label: 'Operación Continua', value: '24/7' }
+    ],
+    stressorsMitigated: [
+      'Sesgos emocionales en la toma de decisiones operativas de trading',
+      'Pérdida de ventanas de oportunidad por retrasos de análisis manual',
+      'Desconexión de feeds de precios en momentos de alta liquidez'
+    ],
+    featured: true,
+    accentColor: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)'
   },
   {
     id: 'grafo-agentes-ia',
@@ -87,15 +149,15 @@ export const PROJECTS_DATA: Project[] = [
     categoryLabel: 'Automatización & IA',
     subtitle: 'Simulador neural interactivo en Canvas HTML5 con física de partículas y clusterización semántica',
     description: 'Visualizador de alto rendimiento a 60 fps que orquesta y mapea dinámicamente las relaciones, dependencias y dominios de 697 agentes de IA especializados (The Agency, Everything Claude Code y Addy Osmani).',
-    fullDescription: 'Diseñado para explorar y comprender arquitecturas multi-agente complejas en tiempo real. Implementa un motor de física de resortes y fuerzas de repulsión en Canvas 2D nativo, búsqueda neural por texto con filtrado semántico instantáneo, inspección de capacidades por nodo y centrado óptico adaptativo sin dependencias pesadas de WebGL.',
+    fullDescription: 'Diseñado para explorar y comprender arquitecturas multi-agente complejas en tiempo real. Implementa un motor de física de resortes y fuerzas de repulsión en Canvas 2D nativo, búsqueda neural por texto con filtrado semántico instantáneo y centrado óptico adaptativo sin dependencias de WebGL.',
     keyHighlights: [
       'Motor de renderizado Canvas 2D optimizado con triple-buffering para sostener 60 FPS estables',
-      'Mapeo de 697 nodos activos organizados por divisiones (Ingeniería, AppSec, UX, Finanzas, Testing)',
+      'Mapeo de 697 nodos activos organizados por 18 divisiones de especialización técnica',
       'Algoritmo de simulación física Barnes-Hut para cálculo fluido de fuerzas gravitatorias',
       'Panel lateral de telemetría y ejecución de misiones multi-agente asistidas'
     ],
     technologies: ['JavaScript ES2024', 'HTML5 Canvas', 'Physics Engine', 'AI Multi-Agent Systems', 'ECC Framework'],
-    githubUrl: 'https://github.com/Irvin-Dev/Grafo_de_Agentes_Con_Skills',
+    githubUrl: 'https://github.com/Irvin-Osvaldo-Galvez-Romero0/Grafo_de_Agentes_Con_Skills',
     demoUrl: '#',
     status: 'Completado',
     stats: [
@@ -104,11 +166,11 @@ export const PROJECTS_DATA: Project[] = [
       { label: 'Divisiones IA', value: '18+' }
     ],
     stressorsMitigated: [
-      'Sobrecarga de renderizado DOM con cientos de elementos SVG simultáneos',
-      'Latencia de cálculo físico en computadoras portátiles estándar',
-      'Desorientación visual del usuario en grafos de densidad ultra-alta'
+      'Sobrecarga de renderizado DOM con cientos de nodos simultáneos',
+      'Latencia de cálculo físico en laptops estándar',
+      'Desorientación visual en grafos de densidad ultra-alta'
     ],
-    featured: true,
+    featured: false,
     accentColor: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)'
   },
   {
@@ -117,16 +179,16 @@ export const PROJECTS_DATA: Project[] = [
     category: 'pwa-fullstack',
     categoryLabel: 'PWAs & Full-Stack',
     subtitle: 'Generación y composición automatizada de piezas audiovisuales 9:16 desde código declarativo',
-    description: 'Pipeline de renderizado de video como código (Video-as-Code) que sustituye software tradicional de edición. Construye composiciones verticales ultra fluidas mediante React 19, TypeScript y Rspack.',
+    description: 'Pipeline de Video-as-Code que construye composiciones verticales ultra fluidas mediante React 19, TypeScript y Rspack, eliminando dependencias de software de diseño tradicional.',
     fullDescription: 'Permite compilar videos publicitarios y divulgativos de 60 segundos a 30 fps con animaciones matemáticamente determinadas. Elimina el renderizado CSS fluctuante delegando todo el movimiento a funciones puras de interpolación temporal relativas a frames (`interpolate` con clamps estrictos).',
     keyHighlights: [
       'Video-as-Code: control determinista de tipografía, capas 3D y elementos HUD',
       'Cero desincronización de audio y frames mediante secuencias relativas encapsuladas',
-      'Integración con Rspack para tiempos de compilación y bundling ultra acelerados',
+      'Integración con Rspack para compilación y bundling ultra acelerados',
       'Plantillas paramétricas listas para automatización mediante scripts de Node.js'
     ],
     technologies: ['Remotion', 'React 19', 'TypeScript', 'Rspack', 'Node.js CLI', 'Residuality Theory'],
-    githubUrl: 'https://github.com/Irvin-Dev/remotion',
+    githubUrl: 'https://github.com/Irvin-Osvaldo-Galvez-Romero0/remotion',
     demoUrl: '#',
     status: 'Completado',
     stats: [
@@ -136,57 +198,5 @@ export const PROJECTS_DATA: Project[] = [
     ],
     featured: false,
     accentColor: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%)'
-  },
-  {
-    id: 'n8n-trading-etfs',
-    title: 'Ecosistema de Trading & ETFs Automatizado con n8n',
-    category: 'ai-automation',
-    categoryLabel: 'Automatización & IA',
-    subtitle: 'Flujos automatizados de análisis de mercado, cálculo de indicadores y bot de señales financieras',
-    description: 'Solución integral de captura, análisis y notificación de mercados financieros y fondos indexados (ETFs). Orquesta nodos avanzados de n8n, modelos de lenguaje para análisis de noticias y alertas en Telegram.',
-    fullDescription: 'Conecta APIs financieras en vivo (precios, dividendos, volatilidad, medias móviles) con modelos de IA para generar resúmenes ejecutivos matutinos. Incorpora disparadores automáticos ante rupturas de soporte/resistencia y control de riesgo de trading con bitácora en bases de datos PostgreSQL/MongoDB.',
-    keyHighlights: [
-      'Orquestación de workflows complejos en n8n con manejo resiliente de errores y reintentos',
-      'Integración bidireccional con bot de Telegram para consultas interactivas de tickets',
-      'Cálculo automatizado de métricas cuantitativas (RSI, MACD, volatilidad histórica)',
-      'Despliegue contenerizado mediante Docker Compose con persistencia de estado'
-    ],
-    technologies: ['n8n', 'Python', 'Node.js', 'Telegram Bot API', 'Docker', 'PostgreSQL', 'Financial APIs'],
-    githubUrl: 'https://github.com/Irvin-Dev/ChatBotN8NTrading',
-    demoUrl: '#',
-    status: 'Producción',
-    stats: [
-      { label: 'Uptime de Flujos', value: '99.9%' },
-      { label: 'Monitoreo de Activos', value: '50+ ETFs' },
-      { label: 'Latencia de Alerta', value: '< 2s' }
-    ],
-    featured: true,
-    accentColor: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)'
-  },
-  {
-    id: 'joyeria-aivi',
-    title: 'Plataforma E-Commerce Joyería AIVI',
-    category: 'ecommerce',
-    categoryLabel: 'E-Commerce',
-    subtitle: 'Tienda en línea de alta conversión con estética premium, catálogo interactivo y checkout fluido',
-    description: 'Experiencia de compra digital de lujo desarrollada con enfoque en diseño glassmorphism, microinteracciones suaves, optimización de imágenes en alta resolución y checkout guiado por WhatsApp/Pasarela.',
-    fullDescription: 'Diseñada para cautivar al cliente desde el primer segundo. Dispone de filtrado multifacético por metales y piedras preciosas, selector visual de tallas, cálculo dinámico de presupuestos para piezas personalizadas y carga ultra optimizada en dispositivos móviles.',
-    keyHighlights: [
-      'Estética visual refinada con paletas adaptativas, modo oscuro sofisticado y efectos de cristal',
-      'Filtrado y búsqueda instantánea de piezas en tiempo real sin recargas de página',
-      'Optimización agresiva de imágenes con WebP/AVIF reduciendo el peso de página al 70%',
-      'Embudo de conversión optimizado para compras directas y atención personalizada'
-    ],
-    technologies: ['Next.js', 'React', 'CSS Modules', 'Responsive Design', 'WebP/AVIF', 'WhatsApp API'],
-    githubUrl: 'https://github.com/Irvin-Dev/Joyeria_AIVI',
-    demoUrl: '#',
-    status: 'Completado',
-    stats: [
-      { label: 'Tasa de Carga Móvil', value: '< 1.1s' },
-      { label: 'Conversión de Carrito', value: '+35%' },
-      { label: 'Diseño Responsivo', value: '100%' }
-    ],
-    featured: false,
-    accentColor: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)'
   }
 ];
