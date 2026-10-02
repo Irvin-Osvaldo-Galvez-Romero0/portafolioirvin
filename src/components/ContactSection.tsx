@@ -9,7 +9,7 @@ export default function ContactSection() {
     name: '',
     email: '',
     projectType: 'PWA / Aplicación Web Progresiva',
-    budget: '$1,000 - $3,000 USD',
+    budget: '$4,500 - $10,500 MXN',
     timeline: '1 Mes',
     specifications: '',
   });
@@ -61,7 +61,7 @@ export default function ContactSection() {
         name: '',
         email: '',
         projectType: 'PWA / Aplicación Web Progresiva',
-        budget: '$1,000 - $3,000 USD',
+        budget: '$4,500 - $10,500 MXN',
         timeline: '1 Mes',
         specifications: '',
       });
@@ -328,10 +328,10 @@ export default function ContactSection() {
                     onChange={handleChange}
                     className="form-select"
                   >
-                    <option value="< $1,000 USD">&lt; $1,000 USD</option>
-                    <option value="$1,000 - $3,000 USD">$1,000 - $3,000 USD</option>
-                    <option value="$3,000 - $6,000 USD">$3,000 - $6,000 USD</option>
-                    <option value="$6,000+ USD">$6,000+ USD</option>
+                    <option value="< $4,500 MXN">&lt; $4,500 MXN (Básico / Módulo)</option>
+                    <option value="$4,500 - $10,500 MXN">$4,500 - $10,500 MXN (Estándar / PWA)</option>
+                    <option value="$10,500 - $21,000 MXN">$10,500 - $21,000 MXN (Avanzado / Sistema)</option>
+                    <option value="$21,000+ MXN">$21,000+ MXN (Empresarial / Alta Escala)</option>
                     <option value="Por definir / A convenir">Por definir / A convenir</option>
                   </select>
                 </div>
