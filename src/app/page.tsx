@@ -1,4 +1,5 @@
 import Navbar from '@/components/Navbar';
+import ParticleBackground from '@/components/ParticleBackground';
 import Hero from '@/components/Hero';
 import TechTicker from '@/components/TechTicker';
 import ProjectsSection from '@/components/ProjectsSection';
@@ -11,6 +12,7 @@ import Footer from '@/components/Footer';
 export default function Home() {
   return (
     <>
+      <ParticleBackground />
       <Navbar />
       <main id="main-content">
         <Hero />

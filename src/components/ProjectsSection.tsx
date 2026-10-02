@@ -34,6 +34,12 @@ export default function ProjectsSection() {
     setModalTab('case-study');
   };
 
+  const handleCardPointerMove = (e: React.PointerEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+    e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+  };
+
   return (
     <section id="proyectos" style={{ padding: '80px 0', position: 'relative' }}>
       <div className="container">
@@ -133,7 +139,8 @@ export default function ProjectsSection() {
           {filteredProjects.map((project) => (
             <article
               key={project.id}
-              className="glass-card tilt-card"
+              className="glass-card tilt-card spotlight-card"
+              onPointerMove={handleCardPointerMove}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
