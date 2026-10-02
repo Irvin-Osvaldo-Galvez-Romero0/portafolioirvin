@@ -1,0 +1,87 @@
+{
+  "name": "Irvin Dev | Full Stack & AI Architect",
+  "short_name": "Irvin Dev",
+  "description": "Portafolio profesional de desarrollo Full Stack, PWAs Offline-First, arquitecturas de software resilientes con Residuality Theory y automatizaciones con IA.",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#060913",
+  "theme_color": "#060913",
+  "scope": "/",
+  "lang": "es-MX",
+  "categories": ["portfolio", "developer", "technology", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Ver CV ATS (PDF)",
+      "short_name": "CV",
+      "description": "Ver e imprimir currículum vitae optimizado",
+      "url": "/cv",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Explorar Proyectos",
+      "short_name": "Proyectos",
+      "description": "Ver casos de estudio y código en GitHub",
+      "url": "/#proyectos",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Cotizar Proyecto",
+      "short_name": "Cotizar",
+      "description": "Enviar especificaciones y requerimientos técnicos",
+      "url": "/#contacto",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+    }
+  ]
+}

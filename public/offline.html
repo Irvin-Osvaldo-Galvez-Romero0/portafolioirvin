@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#060913">
+  <title>Modo Offline | Irvin Dev PWA</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    body {
+      background-color: #060913;
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .card {
+      background: rgba(12, 18, 34, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(6, 182, 212, 0.15);
+    }
+    .icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #6366f1, #06b6d4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem auto;
+      box-shadow: 0 0 25px rgba(99, 102, 241, 0.4);
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 0.8rem;
+      color: #ffffff;
+    }
+    p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.8rem;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 0.8rem 1.4rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 0.75rem;
+      border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1, #06b6d4);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+    }
+    .btn-primary:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 1l22 22"/>
+        <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/>
+        <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/>
+        <path d="M10.71 5.05A16 16 0 0 1 22.58 9"/>
+        <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/>
+        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+        <line x1="12" y1="20" x2="12.01" y2="20"/>
+      </svg>
+    </div>
+    <div class="badge">Residuality Theory • Offline First</div>
+    <h1>Modo Offline Activo</h1>
+    <p>
+      No tienes conexión a internet en este momento, pero el portafolio de <strong>Irvin Dev</strong> está equipado con arquitectura PWA para mantener disponibles los contenidos en caché.
+    </p>
+    <button class="btn btn-primary" onclick="window.location.reload()">Reintentar Conexión</button>
+    <a class="btn btn-secondary" href="/">Volver a Portafolio (Caché)</a>
+  </div>
+</body>
+</html>
