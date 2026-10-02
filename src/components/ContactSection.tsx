@@ -372,11 +372,11 @@ export default function ContactSection() {
                 />
               </div>
 
-              {/* Submit Button */}
+              {/* Submit Button with Shimmer Sweep */}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="btn btn-primary"
+                className="btn btn-primary shimmer-btn"
                 style={{
                   width: '100%',
                   padding: '0.9rem',

@@ -6,13 +6,18 @@ import { Menu, X, ArrowUpRight, Code2, FileText } from 'lucide-react';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [scrollPercent, setScrollPercent] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      if (total > 0) {
+        setScrollPercent(Math.min(100, Math.max(0, (window.scrollY / total) * 100)));
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -24,15 +29,18 @@ export default function Navbar() {
         left: 0,
         right: 0,
         zIndex: 50,
-        transition: 'all 0.3s ease',
+        transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
         background: isScrolled ? 'rgba(6, 9, 19, 0.88)' : 'transparent',
         backdropFilter: isScrolled ? 'blur(16px)' : 'none',
         borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid transparent',
       }}
     >
+      {/* Top Animated Reading Progress Bar */}
+      <div className="reading-progress-bar" style={{ width: `${scrollPercent}%` }} />
+
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px' }}>
-        {/* Brand Logo */}
-        <Link href="#inicio" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none' }}>
+        {/* Brand Logo with Glow */}
+        <Link href="#inicio" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none' }} className="brand-logo">
           <div
             style={{
               width: '40px',
@@ -43,7 +51,9 @@ export default function Navbar() {
               alignItems: 'center',
               justifyContent: 'center',
               boxShadow: '0 0 20px rgba(99, 102, 241, 0.4)',
+              transition: 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
             }}
+            className="logo-icon"
           >
             <Code2 size={22} color="#ffffff" />
           </div>
@@ -70,7 +80,10 @@ export default function Navbar() {
         {/* Actions */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <div className="badge badge-pulse" style={{ display: 'none' }} id="status-badge">
-            <span className="pulse-dot"></span>
+            <div className="pulse-ring-wrapper" style={{ width: '8px', height: '8px' }}>
+              <div className="pulse-ring"></div>
+              <span className="pulse-dot"></span>
+            </div>
             <span>Disponible</span>
           </div>
 
@@ -79,7 +92,7 @@ export default function Navbar() {
             <span>Ver CV</span>
           </Link>
 
-          <Link href="#contacto" className="btn btn-primary" style={{ padding: '0.6rem 1.2rem', fontSize: '0.88rem' }}>
+          <Link href="#contacto" className="btn btn-primary shimmer-btn" style={{ padding: '0.6rem 1.2rem', fontSize: '0.88rem' }}>
             <span>Cotizar Proyecto</span>
             <ArrowUpRight size={16} />
           </Link>
@@ -97,6 +110,7 @@ export default function Navbar() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              transition: 'background 0.2s ease',
             }}
             className="mobile-toggle"
             aria-label="Toggle Menu"
@@ -116,6 +130,7 @@ export default function Navbar() {
             display: 'flex',
             flexDirection: 'column',
             gap: '1.2rem',
+            animation: 'fadeIn 0.25s ease-out',
           }}
         >
           <Link href="#inicio" onClick={() => setMobileMenuOpen(false)} style={{ color: '#f8fafc', textDecoration: 'none', fontSize: '1.1rem' }}>
@@ -144,6 +159,9 @@ export default function Navbar() {
       )}
 
       <style jsx>{`
+        .brand-logo:hover .logo-icon {
+          transform: scale(1.08) rotate(4deg);
+        }
         .nav-link {
           color: #94a3b8;
           text-decoration: none;
@@ -151,9 +169,24 @@ export default function Navbar() {
           font-weight: 500;
           transition: color 0.2s ease;
           position: relative;
+          padding: 0.3rem 0;
+        }
+        .nav-link::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0%;
+          height: 2px;
+          background: linear-gradient(90deg, #6366f1, #06b6d4);
+          transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+          border-radius: 2px;
         }
         .nav-link:hover {
           color: #ffffff;
+        }
+        .nav-link:hover::after {
+          width: 100%;
         }
         @media (min-width: 860px) {
           .desktop-nav {

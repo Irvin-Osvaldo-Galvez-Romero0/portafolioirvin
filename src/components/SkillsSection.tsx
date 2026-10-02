@@ -58,7 +58,7 @@ export default function SkillsSection() {
           {SKILLS_DATA.map((cat, idx) => (
             <div
               key={idx}
-              className="glass-card"
+              className="glass-card tilt-card"
               style={{
                 padding: '2rem',
                 display: 'flex',
@@ -79,7 +79,9 @@ export default function SkillsSection() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0,
+                    transition: 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
                   }}
+                  className="cat-icon-wrap"
                 >
                   {getIcon(cat.icon)}
                 </div>
@@ -106,7 +108,7 @@ export default function SkillsSection() {
                       </span>
                     </div>
 
-                    {/* Progress Bar Container */}
+                    {/* Progress Bar Container with Animated Shimmer */}
                     <div
                       style={{
                         width: '100%',
@@ -118,6 +120,7 @@ export default function SkillsSection() {
                       }}
                     >
                       <div
+                        className="skill-bar-fill"
                         style={{
                           width: `${skill.level}%`,
                           height: '100%',
@@ -171,7 +174,7 @@ export default function SkillsSection() {
             {PHILOSOPHY_POINTS.map((item, idx) => (
               <div
                 key={idx}
-                className="glass-card"
+                className="glass-card tilt-card"
                 style={{
                   padding: '2rem',
                   border: '1px solid rgba(255, 255, 255, 0.08)',

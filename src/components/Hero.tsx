@@ -14,7 +14,7 @@ export default function Hero() {
           {/* Columna Izquierda: Mensaje y Propuesta de Valor */}
           <div style={{ maxWidth: '680px' }}>
             <div
-              className="badge"
+              className="badge shimmer-badge"
               style={{
                 background: 'rgba(99, 102, 241, 0.12)',
                 border: '1px solid rgba(99, 102, 241, 0.3)',
@@ -50,7 +50,7 @@ export default function Hero() {
 
             {/* CTAs */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '3rem' }}>
-              <Link href="#proyectos" className="btn btn-primary" style={{ padding: '0.85rem 1.8rem', fontSize: '1rem' }}>
+              <Link href="#proyectos" className="btn btn-primary shimmer-btn" style={{ padding: '0.85rem 1.8rem', fontSize: '1rem' }}>
                 <span>Explorar Proyectos</span>
                 <ArrowRight size={18} />
               </Link>
@@ -74,7 +74,7 @@ export default function Hero() {
               </a>
             </div>
 
-            {/* Stat Counters Grid */}
+            {/* Stat Counters Grid with Micro-Interactions */}
             <div
               style={{
                 display: 'grid',
@@ -84,20 +84,20 @@ export default function Hero() {
                 paddingTop: '1.8rem',
               }}
             >
-              <div>
-                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#f8fafc' }}>15+</div>
+              <div className="stat-card">
+                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#f8fafc' }} className="stat-number">15+</div>
                 <div style={{ fontSize: '0.82rem', color: '#94a3b8' }}>Proyectos & Módulos</div>
               </div>
-              <div>
-                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#06b6d4' }}>690+</div>
+              <div className="stat-card">
+                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#06b6d4' }} className="stat-number">690+</div>
                 <div style={{ fontSize: '0.82rem', color: '#94a3b8' }}>Skills & Agentes IA</div>
               </div>
-              <div>
-                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#10b981' }}>100%</div>
+              <div className="stat-card">
+                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#10b981' }} className="stat-number">100%</div>
                 <div style={{ fontSize: '0.82rem', color: '#94a3b8' }}>Resiliencia Offline</div>
               </div>
-              <div>
-                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#a855f7' }}>60 FPS</div>
+              <div className="stat-card">
+                <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#a855f7' }} className="stat-number">60 FPS</div>
                 <div style={{ fontSize: '0.82rem', color: '#94a3b8' }}>Rendimiento UI</div>
               </div>
             </div>
@@ -110,22 +110,23 @@ export default function Hero() {
               style={{
                 position: 'absolute',
                 inset: '-20px',
-                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%)',
-                filter: 'blur(35px)',
+                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.22) 0%, rgba(6, 182, 212, 0.22) 100%)',
+                filter: 'blur(40px)',
                 borderRadius: '30px',
                 zIndex: 0,
               }}
             ></div>
 
-            {/* Terminal Window */}
+            {/* Terminal Window with Float Animation */}
             <div
-              className="glass-card"
+              className="glass-card terminal-float"
               style={{
                 position: 'relative',
                 zIndex: 1,
                 padding: '1.8rem',
                 border: '1px solid rgba(255, 255, 255, 0.14)',
-                background: 'rgba(10, 16, 32, 0.85)',
+                background: 'rgba(10, 16, 32, 0.88)',
+                boxShadow: '0 20px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(99, 102, 241, 0.15)',
               }}
             >
               {/* Terminal Header */}
@@ -172,6 +173,7 @@ export default function Hero() {
                   </p>
                   <p>
                     <span style={{ color: '#a5b4fc' }}>status:</span> <span style={{ color: '#10b981' }}>&apos;Vercel Ready & Active&apos;</span>
+                    <span className="cursor-blink"></span>
                   </p>
                 </div>
                 <p style={{ color: '#94a3b8' }}>&#125;;</p>
@@ -202,6 +204,24 @@ export default function Hero() {
       </div>
 
       <style jsx>{`
+        .stat-card {
+          padding: 0.6rem 0.8rem;
+          border-radius: 10px;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          border: 1px solid transparent;
+        }
+        .stat-card:hover {
+          background: rgba(255, 255, 255, 0.04);
+          border-color: rgba(255, 255, 255, 0.08);
+          transform: translateY(-4px);
+        }
+        .stat-card:hover .stat-number {
+          filter: brightness(1.2);
+          transform: scale(1.05);
+        }
+        .stat-number {
+          transition: transform 0.2s ease, filter 0.2s ease;
+        }
         @media (min-width: 960px) {
           .hero-grid {
             grid-template-columns: 1.15fr 0.85fr !important;

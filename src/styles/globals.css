@@ -80,7 +80,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Background Atmosphere Mesh */
+/* Background Atmosphere Mesh with Floating Animations */
 .ambient-glow-1 {
   position: fixed;
   top: -150px;
@@ -88,23 +88,27 @@ body {
   width: 600px;
   height: 600px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(6, 9, 19, 0) 70%);
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.14) 0%, rgba(6, 9, 19, 0) 70%);
   pointer-events: none;
   z-index: 0;
-  filter: blur(40px);
+  filter: blur(50px);
+  animation: floatMesh1 22s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 .ambient-glow-2 {
   position: fixed;
-  top: 40%;
+  top: 35%;
   right: -150px;
   width: 650px;
   height: 650px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, rgba(6, 9, 19, 0) 70%);
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, rgba(6, 9, 19, 0) 70%);
   pointer-events: none;
   z-index: 0;
-  filter: blur(50px);
+  filter: blur(60px);
+  animation: floatMesh2 26s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 .ambient-glow-3 {
@@ -114,10 +118,30 @@ body {
   width: 700px;
   height: 700px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, rgba(6, 9, 19, 0) 70%);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.09) 0%, rgba(6, 9, 19, 0) 70%);
   pointer-events: none;
   z-index: 0;
-  filter: blur(50px);
+  filter: blur(60px);
+  animation: floatMesh3 24s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes floatMesh1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(45px, 35px) scale(1.08); }
+  100% { transform: translate(-25px, 20px) scale(0.96); }
+}
+
+@keyframes floatMesh2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-40px, -30px) scale(1.06); }
+  100% { transform: translate(30px, 25px) scale(0.94); }
+}
+
+@keyframes floatMesh3 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(35px, -40px) scale(1.1); }
+  100% { transform: translate(-30px, -20px) scale(0.97); }
 }
 
 /* Tipografía */
@@ -367,4 +391,308 @@ h1, h2, h3, h4, h5, h6 {
 .form-select option {
   background: #0f172a;
   color: #fff;
+}
+
+/* ==========================================================
+   SISTEMA DE ANIMACIONES & MICRO-INTERACCIONES (UI/UX ARCHITECT)
+   ========================================================== */
+
+/* 1. Terminal Flotante & Cursor */
+.terminal-float {
+  animation: floatTerminal 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes floatTerminal {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.cursor-blink {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background-color: #34d399;
+  vertical-align: middle;
+  margin-left: 4px;
+  border-radius: 2px;
+  animation: cursorBlink 1s infinite steps(2, start);
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* 2. Botones & Badges con Brillo Shimmer */
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 65%
+  );
+  transform: rotate(30deg);
+  animation: shimmerSweep 4.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.shimmer-badge {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-badge::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 65%
+  );
+  transform: rotate(30deg);
+  animation: shimmerSweep 3.8s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+@keyframes shimmerSweep {
+  0% { transform: translateX(-120%) rotate(30deg); }
+  35%, 100% { transform: translateX(120%) rotate(30deg); }
+}
+
+/* 3. Concentric Breathing Pulse Ring (Badge Disponible) */
+.pulse-ring-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pulse-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.4);
+  animation: ringPulse 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes ringPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* 4. Marquee / Ticker de Tecnologías Infinito */
+.tech-marquee {
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  padding: 1.2rem 0;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 36s linear infinite;
+  gap: 1.5rem;
+}
+
+.tech-marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-track-reverse {
+  animation-direction: reverse;
+  animation-duration: 40s;
+}
+
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1.2rem;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  transition: all var(--transition-fast);
+}
+
+.marquee-pill:hover {
+  background: rgba(30, 41, 59, 0.95);
+  border-color: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);
+  color: #ffffff;
+}
+
+/* 5. Barras de Habilidad con Shimmer Dinámico */
+.skill-bar-fill {
+  position: relative;
+  overflow: hidden;
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skill-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: barShimmer 2.8s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes barShimmer {
+  0% { transform: translateX(-100%); }
+  50%, 100% { transform: translateX(100%); }
+}
+
+/* 6. Animación de Pestañas en Modales */
+.tab-fade-enter {
+  animation: tabFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 7. Hover Suave para Cards */
+.tilt-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tilt-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.22),
+              0 0 25px rgba(6, 182, 212, 0.12);
+  border-color: rgba(99, 102, 241, 0.35);
+}
+
+/* 8. Botón Flotante Scroll To Top */
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(13, 21, 39, 0.85);
+  border: 1px solid var(--border-glass-bright);
+  backdrop-filter: blur(14px);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 99;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.scroll-to-top-btn:hover {
+  transform: translateY(-4px) scale(1.08);
+  border-color: var(--cyan);
+  box-shadow: 0 12px 30px rgba(6, 182, 212, 0.35);
+  color: #38bdf8;
+}
+
+/* 9. Barra de Progreso de Lectura en Header */
+.reading-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--gradient-main);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
+  z-index: 100;
+  transition: width 0.1s ease-out;
+}
+
+/* 10. Accesibilidad & Navegación por Teclado (WCAG 2.1 AA) */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--primary-light) !important;
+  outline-offset: 3px !important;
+}
+
+/* 11. Respeto a Preferencias de Reducción de Movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ambient-glow-1, .ambient-glow-2, .ambient-glow-3 {
+    animation: none !important;
+  }
+  .terminal-float {
+    animation: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
 }

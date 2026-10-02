@@ -90,7 +90,7 @@ export default function TestimonialsSection() {
           {TESTIMONIALS.map((t, idx) => (
             <div
               key={idx}
-              className="glass-card"
+              className="glass-card tilt-card"
               style={{
                 padding: '2.2rem',
                 display: 'flex',
@@ -103,6 +103,7 @@ export default function TestimonialsSection() {
                 {/* Metric Badge & Stars */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem' }}>
                   <div
+                    className="shimmer-badge"
                     style={{
                       display: 'flex',
                       alignItems: 'center',

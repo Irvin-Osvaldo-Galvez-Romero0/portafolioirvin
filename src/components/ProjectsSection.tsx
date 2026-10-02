@@ -79,8 +79,9 @@ export default function ProjectsSection() {
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
+                  className="filter-btn"
                   style={{
-                    padding: '0.55rem 1.1rem',
+                    padding: '0.55rem 1.15rem',
                     borderRadius: 'var(--radius-full)',
                     border: '1px solid',
                     borderColor: isActive ? 'var(--primary-light)' : 'rgba(255, 255, 255, 0.08)',
@@ -89,7 +90,8 @@ export default function ProjectsSection() {
                     fontSize: '0.86rem',
                     fontWeight: 600,
                     cursor: 'pointer',
-                    transition: 'all 0.2s ease',
+                    transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+                    boxShadow: isActive ? '0 4px 14px rgba(99, 102, 241, 0.3)' : 'none',
                   }}
                 >
                   {cat.label}
@@ -131,7 +133,7 @@ export default function ProjectsSection() {
           {filteredProjects.map((project) => (
             <article
               key={project.id}
-              className="glass-card"
+              className="glass-card tilt-card"
               style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -150,6 +152,7 @@ export default function ProjectsSection() {
                   right: 0,
                   height: '4px',
                   background: project.accentColor,
+                  boxShadow: `0 0 12px ${project.accentColor}`,
                 }}
               ></div>
 
@@ -169,6 +172,7 @@ export default function ProjectsSection() {
                   </span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                     <span
+                      className="shimmer-badge"
                       style={{
                         fontSize: '0.72rem',
                         fontWeight: 700,
@@ -438,7 +442,7 @@ export default function ProjectsSection() {
             <div style={{ padding: '1.8rem', display: 'flex', flexDirection: 'column', gap: '1.6rem' }}>
               {/* TAB 1: Caso de Estudio */}
               {modalTab === 'case-study' && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
+                <div key="case-study" className="tab-fade-enter" style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
                   {/* Problema */}
                   <div
                     style={{
@@ -494,7 +498,7 @@ export default function ProjectsSection() {
 
               {/* TAB 2: Arquitectura & Resiliencia */}
               {modalTab === 'architecture' && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
+                <div key="architecture" className="tab-fade-enter" style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
                   <div>
                     <h4 style={{ fontSize: '1rem', color: '#a5b4fc', marginBottom: '0.6rem' }}>Descripción de la Arquitectura</h4>
                     <p style={{ color: '#cbd5e1', lineHeight: 1.6, fontSize: '0.94rem' }}>
@@ -543,7 +547,7 @@ export default function ProjectsSection() {
 
               {/* TAB 3: Métricas & Stack */}
               {modalTab === 'stack' && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
+                <div key="stack" className="tab-fade-enter" style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
                   {/* Stats Grid */}
                   <div
                     style={{
