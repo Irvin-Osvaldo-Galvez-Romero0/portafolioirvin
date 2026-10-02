@@ -2,13 +2,14 @@
 
 import React, { useState } from 'react';
 import { Project, PROJECTS_DATA } from '@/data/projects';
-import { ExternalLink, Info, Search, Filter, ShieldAlert, CheckCircle2, X, Layers, Cpu } from 'lucide-react';
+import { ExternalLink, Info, Search, Filter, ShieldAlert, CheckCircle2, X, Layers, Cpu, TrendingUp, Briefcase, FileCode2, Target, Award } from 'lucide-react';
 import GithubIcon from '@/components/GithubIcon';
 
 export default function ProjectsSection() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeProjectModal, setActiveProjectModal] = useState<Project | null>(null);
+  const [modalTab, setModalTab] = useState<'case-study' | 'architecture' | 'stack'>('case-study');
 
   const categories = [
     { id: 'all', label: 'Todos los Proyectos' },
@@ -23,9 +24,15 @@ export default function ProjectsSection() {
     const matchesSearch =
       project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.technologies.some((tech) => tech.toLowerCase().includes(searchQuery.toLowerCase()));
+      project.technologies.some((tech) => tech.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      project.businessImpact.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
+
+  const openModal = (project: Project) => {
+    setActiveProjectModal(project);
+    setModalTab('case-study');
+  };
 
   return (
     <section id="proyectos" style={{ padding: '80px 0', position: 'relative' }}>
@@ -42,14 +49,14 @@ export default function ProjectsSection() {
             }}
           >
             <Layers size={14} />
-            <span>Portafolio Técnico de Obras</span>
+            <span>Portafolio Técnico & Casos Reales</span>
           </div>
 
           <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', marginBottom: '1rem' }}>
-            Proyectos Insignia & <span className="gradient-text">Trabajos Realizados</span>
+            Proyectos Insignia & <span className="gradient-text">Casos de Estudio</span>
           </h2>
           <p style={{ color: '#94a3b8', fontSize: '1.05rem', lineHeight: 1.6 }}>
-            Aplicaciones en producción, sistemas con tolerancia extrema a fallos y plataformas interactivas con código disponible en GitHub.
+            Software en producción evaluado por su impacto medible en el negocio, tolerancia a fallos y código abierto en GitHub.
           </p>
         </div>
 
@@ -96,7 +103,7 @@ export default function ProjectsSection() {
             <Search size={16} color="#64748b" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
             <input
               type="text"
-              placeholder="Buscar por tecnología o nombre..."
+              placeholder="Buscar por tecnología, impacto o nombre..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{
@@ -160,18 +167,33 @@ export default function ProjectsSection() {
                   >
                     {project.categoryLabel}
                   </span>
-                  <span
-                    style={{
-                      fontSize: '0.75rem',
-                      padding: '0.2rem 0.6rem',
-                      borderRadius: '8px',
-                      background: 'rgba(255, 255, 255, 0.06)',
-                      color: '#e2e8f0',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
-                    }}
-                  >
-                    {project.status}
-                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <span
+                      style={{
+                        fontSize: '0.72rem',
+                        fontWeight: 700,
+                        padding: '0.2rem 0.6rem',
+                        borderRadius: '6px',
+                        background: 'rgba(16, 185, 129, 0.12)',
+                        color: '#34d399',
+                        border: '1px solid rgba(16, 185, 129, 0.3)',
+                      }}
+                    >
+                      {project.caseStudy.roiBadge}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: '0.72rem',
+                        padding: '0.2rem 0.6rem',
+                        borderRadius: '6px',
+                        background: 'rgba(255, 255, 255, 0.06)',
+                        color: '#cbd5e1',
+                        border: '1px solid rgba(255, 255, 255, 0.08)',
+                      }}
+                    >
+                      {project.status}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Title and Subtitle */}
@@ -181,9 +203,28 @@ export default function ProjectsSection() {
                 <p style={{ fontSize: '0.86rem', color: '#38bdf8', marginBottom: '0.9rem', fontWeight: 500 }}>
                   {project.subtitle}
                 </p>
-                <p style={{ fontSize: '0.92rem', color: '#94a3b8', lineHeight: 1.55, marginBottom: '1.4rem' }}>
+                <p style={{ fontSize: '0.92rem', color: '#94a3b8', lineHeight: 1.55, marginBottom: '1.2rem' }}>
                   {project.description}
                 </p>
+
+                {/* Business Impact Box */}
+                <div
+                  style={{
+                    background: 'rgba(16, 185, 129, 0.07)',
+                    border: '1px solid rgba(16, 185, 129, 0.22)',
+                    borderRadius: '10px',
+                    padding: '0.65rem 0.85rem',
+                    marginBottom: '1.4rem',
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '0.6rem',
+                  }}
+                >
+                  <TrendingUp size={16} color="#10b981" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <div style={{ fontSize: '0.82rem', color: '#d1fae5', lineHeight: 1.45 }}>
+                    <strong style={{ color: '#34d399' }}>Impacto Clave:</strong> {project.businessImpact}
+                  </div>
+                </div>
 
                 {/* Stat Badges */}
                 <div
@@ -242,12 +283,12 @@ export default function ProjectsSection() {
                 }}
               >
                 <button
-                  onClick={() => setActiveProjectModal(project)}
+                  onClick={() => openModal(project)}
                   className="btn btn-secondary"
                   style={{ flex: 1, padding: '0.6rem 0.9rem', fontSize: '0.85rem' }}
                 >
-                  <Info size={15} />
-                  <span>Ver Arquitectura</span>
+                  <Briefcase size={15} />
+                  <span>Ver Caso de Estudio</span>
                 </button>
                 <a
                   href={project.githubUrl}
@@ -266,10 +307,10 @@ export default function ProjectsSection() {
         </div>
       </div>
 
-      {/* Detail Modal */}
+      {/* Detail Modal with Tabs */}
       {activeProjectModal && (
         <div className="modal-overlay" onClick={() => setActiveProjectModal(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '800px' }}>
             {/* Modal Header */}
             <div
               style={{
@@ -281,10 +322,25 @@ export default function ProjectsSection() {
               }}
             >
               <div>
-                <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#06b6d4', textTransform: 'uppercase' }}>
-                  {activeProjectModal.categoryLabel}
-                </span>
-                <h3 style={{ fontSize: '1.5rem', color: '#ffffff', marginTop: '0.2rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.3rem' }}>
+                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#06b6d4', textTransform: 'uppercase' }}>
+                    {activeProjectModal.categoryLabel}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '0.74rem',
+                      fontWeight: 700,
+                      padding: '0.2rem 0.6rem',
+                      borderRadius: '6px',
+                      background: 'rgba(16, 185, 129, 0.15)',
+                      color: '#34d399',
+                      border: '1px solid rgba(16, 185, 129, 0.3)',
+                    }}
+                  >
+                    ROI: {activeProjectModal.caseStudy.roiBadge}
+                  </span>
+                </div>
+                <h3 style={{ fontSize: '1.5rem', color: '#ffffff', lineHeight: 1.25 }}>
                   {activeProjectModal.title}
                 </h3>
               </div>
@@ -307,73 +363,230 @@ export default function ProjectsSection() {
               </button>
             </div>
 
+            {/* Modal Tab Buttons */}
+            <div
+              style={{
+                display: 'flex',
+                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                background: 'rgba(6, 9, 19, 0.4)',
+                padding: '0 1.6rem',
+                gap: '1rem',
+              }}
+            >
+              <button
+                onClick={() => setModalTab('case-study')}
+                style={{
+                  padding: '0.9rem 0.5rem',
+                  background: 'none',
+                  border: 'none',
+                  borderBottom: modalTab === 'case-study' ? '2px solid #06b6d4' : '2px solid transparent',
+                  color: modalTab === 'case-study' ? '#ffffff' : '#94a3b8',
+                  fontWeight: 600,
+                  fontSize: '0.88rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                }}
+              >
+                <Target size={15} color={modalTab === 'case-study' ? '#06b6d4' : '#64748b'} />
+                <span>Caso de Estudio (Negocio & ROI)</span>
+              </button>
+
+              <button
+                onClick={() => setModalTab('architecture')}
+                style={{
+                  padding: '0.9rem 0.5rem',
+                  background: 'none',
+                  border: 'none',
+                  borderBottom: modalTab === 'architecture' ? '2px solid #6366f1' : '2px solid transparent',
+                  color: modalTab === 'architecture' ? '#ffffff' : '#94a3b8',
+                  fontWeight: 600,
+                  fontSize: '0.88rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                }}
+              >
+                <FileCode2 size={15} color={modalTab === 'architecture' ? '#818cf8' : '#64748b'} />
+                <span>Arquitectura & Resiliencia</span>
+              </button>
+
+              <button
+                onClick={() => setModalTab('stack')}
+                style={{
+                  padding: '0.9rem 0.5rem',
+                  background: 'none',
+                  border: 'none',
+                  borderBottom: modalTab === 'stack' ? '2px solid #10b981' : '2px solid transparent',
+                  color: modalTab === 'stack' ? '#ffffff' : '#94a3b8',
+                  fontWeight: 600,
+                  fontSize: '0.88rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                }}
+              >
+                <Award size={15} color={modalTab === 'stack' ? '#10b981' : '#64748b'} />
+                <span>Métricas & Stack</span>
+              </button>
+            </div>
+
             {/* Modal Body */}
             <div style={{ padding: '1.8rem', display: 'flex', flexDirection: 'column', gap: '1.6rem' }}>
-              <div>
-                <h4 style={{ fontSize: '1rem', color: '#a5b4fc', marginBottom: '0.6rem' }}>Descripción Profunda</h4>
-                <p style={{ color: '#cbd5e1', lineHeight: 1.6, fontSize: '0.94rem' }}>
-                  {activeProjectModal.fullDescription}
-                </p>
-              </div>
-
-              {/* Key Highlights */}
-              <div>
-                <h4 style={{ fontSize: '1rem', color: '#a5b4fc', marginBottom: '0.8rem' }}>Logros Técnicos & Arquitectura</h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  {activeProjectModal.keyHighlights.map((hl, i) => (
-                    <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem' }}>
-                      <CheckCircle2 size={18} color="#10b981" style={{ flexShrink: 0, marginTop: '2px' }} />
-                      <span style={{ fontSize: '0.9rem', color: '#94a3b8' }}>{hl}</span>
+              {/* TAB 1: Caso de Estudio */}
+              {modalTab === 'case-study' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
+                  {/* Problema */}
+                  <div
+                    style={{
+                      background: 'rgba(239, 68, 68, 0.08)',
+                      border: '1px solid rgba(239, 68, 68, 0.2)',
+                      borderRadius: '12px',
+                      padding: '1.2rem',
+                    }}
+                  >
+                    <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#fca5a5', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                      🚨 1. El Problema & Cuello de Botella
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Stressors Mitigated (Residuality Theory) */}
-              {activeProjectModal.stressorsMitigated && (
-                <div
-                  style={{
-                    background: 'rgba(244, 63, 94, 0.08)',
-                    border: '1px solid rgba(244, 63, 94, 0.2)',
-                    borderRadius: '12px',
-                    padding: '1.2rem',
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.6rem' }}>
-                    <ShieldAlert size={18} color="#f43f5e" />
-                    <h4 style={{ fontSize: '0.95rem', color: '#fda4af' }}>Estresores Mitigados (Residuality Theory)</h4>
+                    <p style={{ color: '#fecaca', fontSize: '0.92rem', lineHeight: 1.55 }}>
+                      {activeProjectModal.caseStudy.problem}
+                    </p>
                   </div>
-                  <ul style={{ paddingLeft: '1.4rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                    {activeProjectModal.stressorsMitigated.map((stress, i) => (
-                      <li key={i} style={{ fontSize: '0.88rem', color: '#fecdd3' }}>
-                        {stress}
-                      </li>
-                    ))}
-                  </ul>
+
+                  {/* Solución */}
+                  <div
+                    style={{
+                      background: 'rgba(6, 182, 212, 0.08)',
+                      border: '1px solid rgba(6, 182, 212, 0.2)',
+                      borderRadius: '12px',
+                      padding: '1.2rem',
+                    }}
+                  >
+                    <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#67e8f9', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                      🛠️ 2. La Solución de Ingeniería
+                    </div>
+                    <p style={{ color: '#cffafe', fontSize: '0.92rem', lineHeight: 1.55 }}>
+                      {activeProjectModal.caseStudy.solution}
+                    </p>
+                  </div>
+
+                  {/* Resultado & Retorno */}
+                  <div
+                    style={{
+                      background: 'rgba(16, 185, 129, 0.08)',
+                      border: '1px solid rgba(16, 185, 129, 0.2)',
+                      borderRadius: '12px',
+                      padding: '1.2rem',
+                    }}
+                  >
+                    <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#6ee7b7', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                      📈 3. Resultado Cuantificable (ROI)
+                    </div>
+                    <p style={{ color: '#d1fae5', fontSize: '0.92rem', lineHeight: 1.55 }}>
+                      {activeProjectModal.caseStudy.result}
+                    </p>
+                  </div>
                 </div>
               )}
 
-              {/* Stack Completo */}
-              <div>
-                <h4 style={{ fontSize: '1rem', color: '#a5b4fc', marginBottom: '0.6rem' }}>Tecnologías & Librerías</h4>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                  {activeProjectModal.technologies.map((tech, i) => (
-                    <span
-                      key={i}
+              {/* TAB 2: Arquitectura & Resiliencia */}
+              {modalTab === 'architecture' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
+                  <div>
+                    <h4 style={{ fontSize: '1rem', color: '#a5b4fc', marginBottom: '0.6rem' }}>Descripción de la Arquitectura</h4>
+                    <p style={{ color: '#cbd5e1', lineHeight: 1.6, fontSize: '0.94rem' }}>
+                      {activeProjectModal.fullDescription}
+                    </p>
+                  </div>
+
+                  {/* Logros Técnicos */}
+                  <div>
+                    <h4 style={{ fontSize: '1rem', color: '#a5b4fc', marginBottom: '0.8rem' }}>Aseguramiento de Calidad & Logros</h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                      {activeProjectModal.keyHighlights.map((hl, i) => (
+                        <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem' }}>
+                          <CheckCircle2 size={18} color="#10b981" style={{ flexShrink: 0, marginTop: '2px' }} />
+                          <span style={{ fontSize: '0.9rem', color: '#94a3b8' }}>{hl}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Stressors Mitigated (Residuality Theory) */}
+                  {activeProjectModal.stressorsMitigated && (
+                    <div
                       style={{
-                        padding: '0.35rem 0.8rem',
-                        borderRadius: '8px',
-                        background: 'rgba(15, 23, 42, 0.8)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        fontSize: '0.82rem',
-                        color: '#f8fafc',
+                        background: 'rgba(244, 63, 94, 0.08)',
+                        border: '1px solid rgba(244, 63, 94, 0.2)',
+                        borderRadius: '12px',
+                        padding: '1.2rem',
                       }}
                     >
-                      {tech}
-                    </span>
-                  ))}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.6rem' }}>
+                        <ShieldAlert size={18} color="#f43f5e" />
+                        <h4 style={{ fontSize: '0.95rem', color: '#fda4af' }}>Estresores Mitigados (Residuality Theory)</h4>
+                      </div>
+                      <ul style={{ paddingLeft: '1.4rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                        {activeProjectModal.stressorsMitigated.map((stress, i) => (
+                          <li key={i} style={{ fontSize: '0.88rem', color: '#fecdd3' }}>
+                            {stress}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
-              </div>
+              )}
+
+              {/* TAB 3: Métricas & Stack */}
+              {modalTab === 'stack' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
+                  {/* Stats Grid */}
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: `repeat(${activeProjectModal.stats.length}, 1fr)`,
+                      gap: '1rem',
+                      background: 'rgba(6, 9, 19, 0.6)',
+                      padding: '1.2rem',
+                      borderRadius: '14px',
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                    }}
+                  >
+                    {activeProjectModal.stats.map((stat, i) => (
+                      <div key={i} style={{ textAlign: 'center' }}>
+                        <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#f8fafc' }}>{stat.value}</div>
+                        <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>{stat.label}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Stack Completo */}
+                  <div>
+                    <h4 style={{ fontSize: '1rem', color: '#a5b4fc', marginBottom: '0.8rem' }}>Tecnologías, APIs & Librerías Empleadas</h4>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                      {activeProjectModal.technologies.map((tech, i) => (
+                        <span
+                          key={i}
+                          style={{
+                            padding: '0.4rem 0.85rem',
+                            borderRadius: '8px',
+                            background: 'rgba(15, 23, 42, 0.8)',
+                            border: '1px solid rgba(255, 255, 255, 0.12)',
+                            fontSize: '0.85rem',
+                            color: '#f8fafc',
+                          }}
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Modal Actions */}
               <div style={{ display: 'flex', gap: '1rem', paddingTop: '1rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
@@ -385,7 +598,7 @@ export default function ProjectsSection() {
                   style={{ flex: 1 }}
                 >
                   <GithubIcon size={18} />
-                  <span>Explorar Repositorio en GitHub</span>
+                  <span>Ver Código en GitHub</span>
                 </a>
               </div>
             </div>

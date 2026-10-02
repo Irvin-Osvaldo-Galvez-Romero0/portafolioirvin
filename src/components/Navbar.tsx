@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, ArrowUpRight, Code2 } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Code2, FileText } from 'lucide-react';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -63,6 +63,7 @@ export default function Navbar() {
           <Link href="#proyectos" className="nav-link">Proyectos</Link>
           <Link href="#habilidades" className="nav-link">Habilidades</Link>
           <Link href="#arquitectura" className="nav-link">Arquitectura</Link>
+          <Link href="#testimonios" className="nav-link">Casos de Éxito</Link>
           <Link href="#contacto" className="nav-link">Contacto</Link>
         </nav>
 
@@ -72,6 +73,11 @@ export default function Navbar() {
             <span className="pulse-dot"></span>
             <span>Disponible</span>
           </div>
+
+          <Link href="/cv" className="btn btn-secondary" style={{ padding: '0.6rem 1rem', fontSize: '0.86rem', display: 'none' }} id="cv-btn">
+            <FileText size={15} />
+            <span>Ver CV</span>
+          </Link>
 
           <Link href="#contacto" className="btn btn-primary" style={{ padding: '0.6rem 1.2rem', fontSize: '0.88rem' }}>
             <span>Cotizar Proyecto</span>
@@ -124,6 +130,13 @@ export default function Navbar() {
           <Link href="#arquitectura" onClick={() => setMobileMenuOpen(false)} style={{ color: '#f8fafc', textDecoration: 'none', fontSize: '1.1rem' }}>
             Filosofía & Arquitectura
           </Link>
+          <Link href="#testimonios" onClick={() => setMobileMenuOpen(false)} style={{ color: '#f8fafc', textDecoration: 'none', fontSize: '1.1rem' }}>
+            Casos de Éxito & Testimonios
+          </Link>
+          <Link href="/cv" onClick={() => setMobileMenuOpen(false)} style={{ color: '#818cf8', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <FileText size={18} />
+            <span>Ver Currículum (PDF)</span>
+          </Link>
           <Link href="#contacto" onClick={() => setMobileMenuOpen(false)} style={{ color: '#06b6d4', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 600 }}>
             Enviar Especificaciones / Contacto
           </Link>
@@ -150,6 +163,9 @@ export default function Navbar() {
             display: none !important;
           }
           #status-badge {
+            display: inline-flex !important;
+          }
+          #cv-btn {
             display: inline-flex !important;
           }
         }

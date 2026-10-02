@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Sparkles, Terminal, Shield, Zap, ArrowRight, ExternalLink } from 'lucide-react';
+import { Sparkles, Terminal, Shield, Zap, ArrowRight, ExternalLink, FileText } from 'lucide-react';
 import GithubIcon from '@/components/GithubIcon';
 
 export default function Hero() {
@@ -54,8 +54,12 @@ export default function Hero() {
                 <span>Explorar Proyectos</span>
                 <ArrowRight size={18} />
               </Link>
-              <Link href="#contacto" className="btn btn-secondary" style={{ padding: '0.85rem 1.8rem', fontSize: '1rem' }}>
-                <span>Iniciar Proyecto / Contacto</span>
+              <Link href="#contacto" className="btn btn-secondary" style={{ padding: '0.85rem 1.6rem', fontSize: '1rem' }}>
+                <span>Cotizar Proyecto</span>
+              </Link>
+              <Link href="/cv" className="btn btn-secondary" style={{ padding: '0.85rem 1.4rem', fontSize: '1rem' }}>
+                <FileText size={18} color="#06b6d4" />
+                <span>Ver CV (PDF)</span>
               </Link>
               <a
                 href="https://github.com/Irvin-Osvaldo-Galvez-Romero0"
