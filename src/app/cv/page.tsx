@@ -11,34 +11,34 @@ export default function ResumePage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#060913', color: '#f8fafc', padding: '2rem 1rem' }}>
+    <div style={{ minHeight: '100vh', background: '#060913', color: '#f8fafc', padding: 'clamp(1rem, 2.5vw, 2rem) 1rem' }}>
       {/* Top Floating Control Bar (Hidden on print) */}
-      <div className="no-print" style={{ maxWidth: '850px', margin: '0 auto 2rem auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+      <div className="no-print" style={{ maxWidth: '850px', margin: '0 auto 1.8rem auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.8rem' }}>
         <Link
           href="/"
           className="btn btn-secondary"
-          style={{ padding: '0.6rem 1.1rem', fontSize: '0.9rem' }}
+          style={{ padding: '0.6rem 1.1rem', fontSize: '0.88rem' }}
         >
           <ArrowLeft size={16} />
           <span>Volver al Portafolio</span>
         </Link>
 
-        <div style={{ display: 'flex', gap: '0.8rem' }}>
+        <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap' }}>
           <button
             onClick={handlePrint}
             className="btn btn-primary"
-            style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem' }}
+            style={{ padding: '0.6rem 1.1rem', fontSize: '0.88rem' }}
           >
             <Printer size={16} />
-            <span>Imprimir / Guardar en PDF</span>
+            <span>Imprimir / PDF</span>
           </button>
           <a
             href="mailto:irvinosvaldo.gr@gmail.com"
             className="btn btn-outline-cyan"
-            style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem' }}
+            style={{ padding: '0.6rem 1.1rem', fontSize: '0.88rem' }}
           >
             <Mail size={16} />
-            <span>Contratar / Contactar</span>
+            <span>Contratar</span>
           </a>
         </div>
       </div>
@@ -52,30 +52,30 @@ export default function ResumePage() {
           background: '#0c1222',
           border: '1px solid rgba(255, 255, 255, 0.12)',
           borderRadius: '16px',
-          padding: '3rem',
+          padding: 'clamp(1.2rem, 3.5vw, 3rem)',
           boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
         }}
       >
         {/* Header */}
-        <header style={{ borderBottom: '2px solid rgba(255, 255, 255, 0.1)', paddingBottom: '1.8rem', marginBottom: '2rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem' }}>
+        <header style={{ borderBottom: '2px solid rgba(255, 255, 255, 0.1)', paddingBottom: '1.6rem', marginBottom: '1.8rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.2rem' }}>
             <div>
-              <h1 style={{ fontSize: '2.4rem', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em', marginBottom: '0.3rem' }}>
+              <h1 style={{ fontSize: 'clamp(1.6rem, 4vw, 2.4rem)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em', marginBottom: '0.3rem' }}>
                 Irvin Osvaldo Gálvez Romero
               </h1>
-              <div style={{ fontSize: '1.15rem', color: '#06b6d4', fontWeight: 600 }}>
+              <div style={{ fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', color: '#06b6d4', fontWeight: 600 }}>
                 Desarrollador Full Stack & Arquitecto de Agentes de IA
               </div>
             </div>
 
-            <div style={{ fontSize: '0.88rem', color: '#94a3b8', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+            <div style={{ fontSize: '0.88rem', color: '#94a3b8', display: 'flex', flexDirection: 'column', gap: '0.35rem', overflow: 'hidden' }}>
               <div>📍 México • Disponible para trabajo Remoto Global</div>
               <div>
-                📧 <a href="mailto:irvinosvaldo.gr@gmail.com" style={{ color: '#38bdf8', textDecoration: 'none' }}>irvinosvaldo.gr@gmail.com</a>
+                📧 <a href="mailto:irvinosvaldo.gr@gmail.com" style={{ color: '#38bdf8', textDecoration: 'none', wordBreak: 'break-all' }}>irvinosvaldo.gr@gmail.com</a>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 <GithubIcon size={14} color="#94a3b8" />
-                <a href="https://github.com/Irvin-Osvaldo-Galvez-Romero0" target="_blank" rel="noopener noreferrer" style={{ color: '#38bdf8', textDecoration: 'none' }}>
+                <a href="https://github.com/Irvin-Osvaldo-Galvez-Romero0" target="_blank" rel="noopener noreferrer" style={{ color: '#38bdf8', textDecoration: 'none', wordBreak: 'break-all' }}>
                   github.com/Irvin-Osvaldo-Galvez-Romero0
                 </a>
               </div>

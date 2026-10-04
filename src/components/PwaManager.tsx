@@ -82,25 +82,26 @@ export default function PwaManager() {
           aria-live="polite"
           style={{
             position: 'fixed',
-            bottom: '5.5rem',
+            bottom: 'clamp(4.5rem, 8vh, 5.5rem)',
             left: '50%',
             transform: 'translateX(-50%)',
             background: 'rgba(15, 23, 42, 0.95)',
             border: '1px solid rgba(239, 68, 68, 0.4)',
             backdropFilter: 'blur(16px)',
             borderRadius: 'var(--radius-full)',
-            padding: '0.65rem 1.4rem',
+            padding: '0.6rem 1.2rem',
             display: 'flex',
             alignItems: 'center',
-            gap: '0.75rem',
+            gap: '0.65rem',
             zIndex: 999,
             boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(239, 68, 68, 0.2)',
             animation: 'fadeIn 0.3s ease-out',
-            maxWidth: '90vw',
+            maxWidth: 'calc(100vw - 2rem)',
+            width: 'max-content',
           }}
         >
-          <WifiOff size={16} color="#f87171" />
-          <span style={{ fontSize: '0.86rem', color: '#f8fafc', fontWeight: 600 }}>
+          <WifiOff size={16} color="#f87171" style={{ flexShrink: 0 }} />
+          <span style={{ fontSize: 'clamp(0.76rem, 2vw, 0.86rem)', color: '#f8fafc', fontWeight: 600 }}>
             Modo Offline Activo • Resiliencia PWA en Caché Local
           </span>
         </aside>
@@ -113,25 +114,26 @@ export default function PwaManager() {
           aria-live="polite"
           style={{
             position: 'fixed',
-            bottom: '5.5rem',
+            bottom: 'clamp(4.5rem, 8vh, 5.5rem)',
             left: '50%',
             transform: 'translateX(-50%)',
             background: 'rgba(15, 23, 42, 0.95)',
             border: '1px solid rgba(16, 185, 129, 0.4)',
             backdropFilter: 'blur(16px)',
             borderRadius: 'var(--radius-full)',
-            padding: '0.65rem 1.4rem',
+            padding: '0.6rem 1.2rem',
             display: 'flex',
             alignItems: 'center',
-            gap: '0.75rem',
+            gap: '0.65rem',
             zIndex: 999,
             boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(16, 185, 129, 0.2)',
             animation: 'fadeIn 0.3s ease-out',
-            maxWidth: '90vw',
+            maxWidth: 'calc(100vw - 2rem)',
+            width: 'max-content',
           }}
         >
-          <Wifi size={16} color="#34d399" />
-          <span style={{ fontSize: '0.86rem', color: '#f8fafc', fontWeight: 600 }}>
+          <Wifi size={16} color="#34d399" style={{ flexShrink: 0 }} />
+          <span style={{ fontSize: 'clamp(0.76rem, 2vw, 0.86rem)', color: '#f8fafc', fontWeight: 600 }}>
             Conexión en línea restablecida ✓
           </span>
         </aside>
@@ -144,15 +146,16 @@ export default function PwaManager() {
           aria-label="Instalación de la aplicación"
           style={{
             position: 'fixed',
-            bottom: '2rem',
-            left: '2rem',
+            bottom: 'clamp(1rem, 2.5vw, 2rem)',
+            left: 'clamp(1rem, 2.5vw, 2rem)',
+            right: 'clamp(1rem, 2.5vw, 2rem)',
             maxWidth: '380px',
-            width: 'calc(100vw - 4rem)',
+            width: 'auto',
             background: 'rgba(13, 21, 39, 0.94)',
             border: '1px solid rgba(99, 102, 241, 0.35)',
             backdropFilter: 'blur(18px)',
             borderRadius: 'var(--radius-lg)',
-            padding: '1.2rem',
+            padding: '1.1rem',
             zIndex: 998,
             boxShadow: '0 20px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(99, 102, 241, 0.2)',
             animation: 'scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)',

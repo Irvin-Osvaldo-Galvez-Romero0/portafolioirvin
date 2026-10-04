@@ -77,8 +77,8 @@ export default function ProjectsSection() {
             marginBottom: '2.5rem',
           }}
         >
-          {/* Category Tabs */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+          {/* Category Tabs (Scrollable on mobile) */}
+          <div className="filter-bar-scrollable" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', maxWidth: '100%' }}>
             {categories.map((cat) => {
               const isActive = selectedCategory === cat.id;
               return (
@@ -87,17 +87,19 @@ export default function ProjectsSection() {
                   onClick={() => setSelectedCategory(cat.id)}
                   className="filter-btn"
                   style={{
-                    padding: '0.55rem 1.15rem',
+                    padding: '0.5rem 1.05rem',
                     borderRadius: 'var(--radius-full)',
                     border: '1px solid',
                     borderColor: isActive ? 'var(--primary-light)' : 'rgba(255, 255, 255, 0.08)',
                     background: isActive ? 'var(--gradient-main)' : 'rgba(15, 23, 42, 0.6)',
                     color: isActive ? '#ffffff' : '#94a3b8',
-                    fontSize: '0.86rem',
+                    fontSize: '0.84rem',
                     fontWeight: 600,
                     cursor: 'pointer',
                     transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                     boxShadow: isActive ? '0 4px 14px rgba(99, 102, 241, 0.3)' : 'none',
+                    whiteSpace: 'nowrap',
+                    flexShrink: 0,
                   }}
                 >
                   {cat.label}
@@ -107,11 +109,11 @@ export default function ProjectsSection() {
           </div>
 
           {/* Search Box */}
-          <div style={{ position: 'relative', minWidth: '260px' }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: '320px' }}>
             <Search size={16} color="#64748b" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
             <input
               type="text"
-              placeholder="Buscar por tecnología, impacto o nombre..."
+              placeholder="Buscar por tecnología o impacto..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{
@@ -129,23 +131,17 @@ export default function ProjectsSection() {
         </div>
 
         {/* Projects Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-            gap: '1.8rem',
-          }}
-        >
+        <div className="projects-grid">
           {filteredProjects.map((project) => (
             <article
               key={project.id}
-              className="glass-card tilt-card spotlight-card"
+              className="glass-card tilt-card spotlight-card project-card-responsive"
               onPointerMove={handleCardPointerMove}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                padding: '1.8rem',
+                padding: 'clamp(1.2rem, 3vw, 1.8rem)',
                 overflow: 'hidden',
                 position: 'relative',
               }}
@@ -321,19 +317,20 @@ export default function ProjectsSection() {
       {/* Detail Modal with Tabs */}
       {activeProjectModal && (
         <div className="modal-overlay" onClick={() => setActiveProjectModal(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '800px' }}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '800px', width: '100%' }}>
             {/* Modal Header */}
             <div
               style={{
-                padding: '1.6rem',
+                padding: 'clamp(1rem, 2.5vw, 1.6rem)',
                 borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
                 display: 'flex',
                 alignItems: 'flex-start',
                 justifyContent: 'space-between',
+                gap: '0.8rem',
               }}
             >
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.3rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.3rem', flexWrap: 'wrap' }}>
                   <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#06b6d4', textTransform: 'uppercase' }}>
                     {activeProjectModal.categoryLabel}
                   </span>
@@ -351,7 +348,7 @@ export default function ProjectsSection() {
                     ROI: {activeProjectModal.caseStudy.roiBadge}
                   </span>
                 </div>
-                <h3 style={{ fontSize: '1.5rem', color: '#ffffff', lineHeight: 1.25 }}>
+                <h3 style={{ fontSize: 'clamp(1.2rem, 3vw, 1.5rem)', color: '#ffffff', lineHeight: 1.25 }}>
                   {activeProjectModal.title}
                 </h3>
               </div>
@@ -361,14 +358,17 @@ export default function ProjectsSection() {
                   background: 'rgba(255, 255, 255, 0.1)',
                   border: 'none',
                   borderRadius: '50%',
-                  width: '34px',
-                  height: '34px',
+                  width: '36px',
+                  height: '36px',
+                  minWidth: '36px',
                   color: '#ffffff',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   cursor: 'pointer',
+                  flexShrink: 0,
                 }}
+                aria-label="Cerrar modal"
               >
                 <X size={18} />
               </button>
@@ -376,48 +376,57 @@ export default function ProjectsSection() {
 
             {/* Modal Tab Buttons */}
             <div
+              className="modal-tabs-header"
               style={{
                 display: 'flex',
                 borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
                 background: 'rgba(6, 9, 19, 0.4)',
-                padding: '0 1.6rem',
-                gap: '1rem',
+                padding: '0 clamp(0.8rem, 2.5vw, 1.6rem)',
+                gap: '0.8rem',
+                overflowX: 'auto',
+                whiteSpace: 'nowrap',
               }}
             >
               <button
                 onClick={() => setModalTab('case-study')}
+                className="modal-tab-btn"
                 style={{
-                  padding: '0.9rem 0.5rem',
+                  padding: '0.85rem 0.5rem',
                   background: 'none',
                   border: 'none',
                   borderBottom: modalTab === 'case-study' ? '2px solid #06b6d4' : '2px solid transparent',
                   color: modalTab === 'case-study' ? '#ffffff' : '#94a3b8',
                   fontWeight: 600,
-                  fontSize: '0.88rem',
+                  fontSize: '0.86rem',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.4rem',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0,
                 }}
               >
                 <Target size={15} color={modalTab === 'case-study' ? '#06b6d4' : '#64748b'} />
-                <span>Caso de Estudio (Negocio & ROI)</span>
+                <span>Caso de Estudio (ROI)</span>
               </button>
 
               <button
                 onClick={() => setModalTab('architecture')}
+                className="modal-tab-btn"
                 style={{
-                  padding: '0.9rem 0.5rem',
+                  padding: '0.85rem 0.5rem',
                   background: 'none',
                   border: 'none',
                   borderBottom: modalTab === 'architecture' ? '2px solid #6366f1' : '2px solid transparent',
                   color: modalTab === 'architecture' ? '#ffffff' : '#94a3b8',
                   fontWeight: 600,
-                  fontSize: '0.88rem',
+                  fontSize: '0.86rem',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.4rem',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0,
                 }}
               >
                 <FileCode2 size={15} color={modalTab === 'architecture' ? '#818cf8' : '#64748b'} />
@@ -426,18 +435,21 @@ export default function ProjectsSection() {
 
               <button
                 onClick={() => setModalTab('stack')}
+                className="modal-tab-btn"
                 style={{
-                  padding: '0.9rem 0.5rem',
+                  padding: '0.85rem 0.5rem',
                   background: 'none',
                   border: 'none',
                   borderBottom: modalTab === 'stack' ? '2px solid #10b981' : '2px solid transparent',
                   color: modalTab === 'stack' ? '#ffffff' : '#94a3b8',
                   fontWeight: 600,
-                  fontSize: '0.88rem',
+                  fontSize: '0.86rem',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.4rem',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0,
                 }}
               >
                 <Award size={15} color={modalTab === 'stack' ? '#10b981' : '#64748b'} />
@@ -446,7 +458,7 @@ export default function ProjectsSection() {
             </div>
 
             {/* Modal Body */}
-            <div style={{ padding: '1.8rem', display: 'flex', flexDirection: 'column', gap: '1.6rem' }}>
+            <div style={{ padding: 'clamp(1rem, 2.5vw, 1.8rem)', display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
               {/* TAB 1: Caso de Estudio */}
               {modalTab === 'case-study' && (
                 <div key="case-study" className="tab-fade-enter" style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
@@ -559,10 +571,10 @@ export default function ProjectsSection() {
                   <div
                     style={{
                       display: 'grid',
-                      gridTemplateColumns: `repeat(${activeProjectModal.stats.length}, 1fr)`,
-                      gap: '1rem',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))',
+                      gap: '0.85rem',
                       background: 'rgba(6, 9, 19, 0.6)',
-                      padding: '1.2rem',
+                      padding: '1.1rem',
                       borderRadius: '14px',
                       border: '1px solid rgba(255, 255, 255, 0.08)',
                     }}

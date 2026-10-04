@@ -80,19 +80,13 @@ export default function TestimonialsSection() {
         </div>
 
         {/* Testimonials Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '1.8rem',
-          }}
-        >
+        <div className="testimonials-grid">
           {TESTIMONIALS.map((t, idx) => (
             <div
               key={idx}
               className="glass-card tilt-card"
               style={{
-                padding: '2.2rem',
+                padding: 'clamp(1.2rem, 3vw, 2.2rem)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',

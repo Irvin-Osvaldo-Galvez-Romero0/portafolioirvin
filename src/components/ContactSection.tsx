@@ -115,7 +115,7 @@ export default function ContactSection() {
         >
           {/* Left Column: Direct Info Card */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.6rem' }}>
-            <div className="glass-card" style={{ padding: '2.2rem' }}>
+            <div className="glass-card info-card-responsive" style={{ padding: 'clamp(1.3rem, 3vw, 2.2rem)' }}>
               <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>
                 Canales Directos
               </h3>
@@ -135,15 +135,16 @@ export default function ContactSection() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
+                      flexShrink: 0,
                     }}
                   >
                     <Mail size={20} color="#818cf8" />
                   </div>
-                  <div>
+                  <div style={{ overflow: 'hidden' }}>
                     <div style={{ fontSize: '0.78rem', color: '#64748b' }}>Correo Electrónico</div>
                     <a
                       href="mailto:irvinosvaldo.gr@gmail.com"
-                      style={{ fontSize: '0.95rem', color: '#f8fafc', fontWeight: 600, textDecoration: 'none' }}
+                      style={{ fontSize: '0.95rem', color: '#f8fafc', fontWeight: 600, textDecoration: 'none', wordBreak: 'break-all' }}
                     >
                       irvinosvaldo.gr@gmail.com
                     </a>
@@ -200,9 +201,9 @@ export default function ContactSection() {
 
             {/* Quote Badge */}
             <div
-              className="glass-card"
+              className="glass-card info-card-responsive"
               style={{
-                padding: '1.8rem',
+                padding: 'clamp(1.2rem, 3vw, 1.8rem)',
                 border: '1px solid rgba(6, 182, 212, 0.2)',
                 background: 'rgba(6, 182, 212, 0.04)',
               }}
@@ -218,8 +219,8 @@ export default function ContactSection() {
           </div>
 
           {/* Right Column: Interactive Form */}
-          <div className="glass-card" style={{ padding: '2.5rem' }}>
-            <h3 style={{ fontSize: '1.4rem', marginBottom: '1.5rem', color: '#ffffff' }}>
+          <div className="glass-card form-card-responsive" style={{ padding: 'clamp(1.3rem, 3.5vw, 2.5rem)' }}>
+            <h3 style={{ fontSize: 'clamp(1.2rem, 2.8vw, 1.4rem)', marginBottom: '1.4rem', color: '#ffffff' }}>
               Formulario de Especificaciones de Proyecto
             </h3>
 
@@ -259,7 +260,7 @@ export default function ContactSection() {
             )}
 
             <form onSubmit={handleSubmit}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.2rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '1.2rem' }}>
                 {/* Nombre */}
                 <div className="form-group">
                   <label htmlFor="name" className="form-label">
@@ -295,7 +296,7 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.2rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '1.2rem' }}>
                 {/* Tipo de Proyecto */}
                 <div className="form-group">
                   <label htmlFor="projectType" className="form-label">

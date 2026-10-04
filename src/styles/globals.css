@@ -177,10 +177,23 @@ h1, h2, h3, h4, h5, h6 {
 /* Componentes de Diseño Global */
 .container {
   max-width: 1240px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 1.5rem;
   position: relative;
   z-index: 1;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 0 0.75rem;
+  }
 }
 
 .gradient-text {
@@ -372,7 +385,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0.85rem 1rem;
   color: var(--text-main);
   font-family: var(--font-primary);
-  font-size: 0.95rem;
+  font-size: 1rem; /* 16px previene el zoom automático molesto en iOS Safari */
   transition: all var(--transition-fast);
   outline: none;
 }
@@ -828,3 +841,213 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     animation: none !important;
   }
 }
+
+/* ==========================================================
+   16. SISTEMA INTEGRAL DE GRID Y RESPONSIVIDAD (MOBILE-FIRST)
+   ========================================================== */
+
+/* Grids Adaptativos Globales */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+}
+
+@media (max-width: 1100px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+@media (max-width: 860px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+}
+
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 1.5rem;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+}
+
+@media (max-width: 1080px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+}
+
+/* Breakpoint: Tablets y Pantallas Medianas (<= 960px) */
+@media (max-width: 960px) {
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2.5rem !important;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+}
+
+/* Breakpoint: Móviles y Tablets Pequeñas (<= 768px) */
+@media (max-width: 768px) {
+  .ambient-glow-1 {
+    width: 280px;
+    height: 280px;
+    top: -50px;
+    left: -50px;
+    filter: blur(35px);
+  }
+  .ambient-glow-2 {
+    width: 280px;
+    height: 280px;
+    right: -50px;
+    filter: blur(35px);
+  }
+  .ambient-glow-3 {
+    width: 300px;
+    height: 300px;
+    bottom: -40px;
+    left: 5%;
+    filter: blur(35px);
+  }
+  .glass-card {
+    border-radius: var(--radius-md);
+  }
+  .scroll-to-top-btn {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Breakpoint: Móviles Estándar (<= 640px) */
+@media (max-width: 640px) {
+  .hero-stat-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+  .hero-cta-group {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.65rem !important;
+    width: 100%;
+  }
+  .hero-cta-group .btn {
+    width: 100%;
+    padding: 0.75rem 0.6rem !important;
+    font-size: 0.88rem !important;
+    text-align: center;
+  }
+  .modal-overlay {
+    padding: 0.6rem !important;
+    align-items: center !important;
+  }
+  .modal-content {
+    max-height: 94vh !important;
+    border-radius: var(--radius-lg) !important;
+    width: 100% !important;
+  }
+  .modal-tabs-header {
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 0 1rem !important;
+    gap: 0.5rem !important;
+  }
+  .modal-tabs-header::-webkit-scrollbar {
+    height: 3px;
+  }
+  .modal-tab-btn {
+    flex-shrink: 0;
+    font-size: 0.82rem !important;
+    padding: 0.75rem 0.4rem !important;
+  }
+  .sat-1 {
+    top: -12px !important;
+    right: 6px !important;
+    font-size: 0.68rem !important;
+    padding: 0.25rem 0.6rem !important;
+  }
+  .sat-2 {
+    bottom: -12px !important;
+    left: 6px !important;
+    font-size: 0.68rem !important;
+    padding: 0.25rem 0.6rem !important;
+  }
+  .sat-3 {
+    display: none !important;
+  }
+  .form-card-responsive {
+    padding: 1.4rem !important;
+  }
+  .info-card-responsive {
+    padding: 1.4rem !important;
+  }
+  .project-card-responsive {
+    padding: 1.4rem !important;
+  }
+  .filter-bar-scrollable {
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 0.4rem !important;
+    max-width: 100%;
+  }
+  .filter-bar-scrollable::-webkit-scrollbar {
+    height: 3px;
+  }
+}
+
+/* Breakpoint: Móviles Estrechos (<= 440px) */
+@media (max-width: 440px) {
+  .hero-cta-group {
+    grid-template-columns: 1fr !important;
+  }
+  .logo-subtext {
+    display: none !important;
+  }
+  .quote-text-full {
+    display: none !important;
+  }
+  .quote-text-short {
+    display: inline !important;
+  }
+  .btn {
+    font-size: 0.88rem !important;
+  }
+  .hero-title-clamp {
+    font-size: 2.1rem !important;
+  }
+}
+

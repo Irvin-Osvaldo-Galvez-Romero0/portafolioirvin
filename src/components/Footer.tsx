@@ -57,22 +57,23 @@ export default function Footer() {
           </div>
 
           {/* Quick Nav */}
-          <div style={{ display: 'flex', gap: '1.8rem', flexWrap: 'wrap' }}>
-            <Link href="#inicio" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '0.9rem' }}>Inicio</Link>
-            <Link href="#proyectos" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '0.9rem' }}>Proyectos</Link>
-            <Link href="#habilidades" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '0.9rem' }}>Habilidades</Link>
-            <Link href="#arquitectura" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '0.9rem' }}>Arquitectura</Link>
-            <Link href="#contacto" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '0.9rem' }}>Contacto</Link>
+          <div style={{ display: 'flex', gap: 'clamp(0.8rem, 2vw, 1.8rem)', flexWrap: 'wrap' }}>
+            <Link href="#inicio" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '0.9rem', padding: '0.2rem 0' }}>Inicio</Link>
+            <Link href="#proyectos" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '0.9rem', padding: '0.2rem 0' }}>Proyectos</Link>
+            <Link href="#habilidades" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '0.9rem', padding: '0.2rem 0' }}>Habilidades</Link>
+            <Link href="#arquitectura" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '0.9rem', padding: '0.2rem 0' }}>Arquitectura</Link>
+            <Link href="/cv" style={{ color: '#06b6d4', textDecoration: 'none', fontSize: '0.9rem', padding: '0.2rem 0' }}>CV (PDF)</Link>
+            <Link href="#contacto" style={{ color: '#94a3b8', textDecoration: 'none', fontSize: '0.9rem', padding: '0.2rem 0' }}>Contacto</Link>
           </div>
 
           {/* Social and Top */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
             <a
               href="https://github.com/Irvin-Osvaldo-Galvez-Romero0"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-secondary"
-              style={{ padding: '0.5rem 0.9rem', fontSize: '0.85rem' }}
+              style={{ padding: '0.55rem 0.95rem', fontSize: '0.85rem' }}
               aria-label="GitHub"
             >
               <GithubIcon size={18} />
@@ -83,8 +84,8 @@ export default function Footer() {
               onClick={scrollToTop}
               className="btn btn-secondary"
               style={{
-                width: '40px',
-                height: '40px',
+                width: '42px',
+                height: '42px',
                 borderRadius: '50%',
                 padding: 0,
                 display: 'flex',

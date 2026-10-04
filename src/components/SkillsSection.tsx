@@ -47,20 +47,13 @@ export default function SkillsSection() {
         </div>
 
         {/* Skills Categories Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
-            gap: '2rem',
-            marginBottom: '4.5rem',
-          }}
-        >
+        <div className="skills-grid" style={{ marginBottom: '4.5rem' }}>
           {SKILLS_DATA.map((cat, idx) => (
             <div
               key={idx}
               className="glass-card tilt-card"
               style={{
-                padding: '2rem',
+                padding: 'clamp(1.2rem, 3vw, 2rem)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1.4rem',
@@ -164,19 +157,13 @@ export default function SkillsSection() {
             </p>
           </div>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '1.5rem',
-            }}
-          >
+          <div className="philosophy-grid">
             {PHILOSOPHY_POINTS.map((item, idx) => (
               <div
                 key={idx}
                 className="glass-card tilt-card"
                 style={{
-                  padding: '2rem',
+                  padding: 'clamp(1.2rem, 3vw, 2rem)',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
                   display: 'flex',
                   flexDirection: 'column',

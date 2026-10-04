@@ -61,7 +61,7 @@ export default function Navbar() {
             <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#ffffff' }}>
               [Irvin<span style={{ color: '#06b6d4' }}>.Dev</span>]
             </span>
-            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '-4px', letterSpacing: '0.05em' }}>
+            <div className="logo-subtext" style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '-4px', letterSpacing: '0.05em' }}>
               FULL STACK & AI ARCHITECT
             </div>
           </div>
@@ -78,7 +78,7 @@ export default function Navbar() {
         </nav>
 
         {/* Actions */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
           <div className="badge badge-pulse" style={{ display: 'none' }} id="status-badge">
             <div className="pulse-ring-wrapper" style={{ width: '8px', height: '8px' }}>
               <div className="pulse-ring"></div>
@@ -92,9 +92,10 @@ export default function Navbar() {
             <span>Ver CV</span>
           </Link>
 
-          <Link href="#contacto" className="btn btn-primary shimmer-btn" style={{ padding: '0.6rem 1.2rem', fontSize: '0.88rem' }}>
-            <span>Cotizar Proyecto</span>
-            <ArrowUpRight size={16} />
+          <Link href="#contacto" className="btn btn-primary shimmer-btn" style={{ padding: '0.55rem 0.95rem', fontSize: '0.86rem', whiteSpace: 'nowrap' }}>
+            <span className="quote-text-full">Cotizar Proyecto</span>
+            <span className="quote-text-short" style={{ display: 'none' }}>Cotizar</span>
+            <ArrowUpRight size={15} />
           </Link>
 
           {/* Mobile Menu Button */}
@@ -111,6 +112,8 @@ export default function Navbar() {
               alignItems: 'center',
               justifyContent: 'center',
               transition: 'background 0.2s ease',
+              minWidth: '40px',
+              minHeight: '40px',
             }}
             className="mobile-toggle"
             aria-label="Toggle Menu"
@@ -124,37 +127,53 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div
           style={{
-            background: 'rgba(6, 9, 19, 0.98)',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+            background: 'rgba(6, 9, 19, 0.97)',
+            backdropFilter: 'blur(20px)',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
             padding: '1.5rem',
             display: 'flex',
             flexDirection: 'column',
             gap: '1.2rem',
+            maxHeight: 'calc(100vh - 76px)',
+            overflowY: 'auto',
             animation: 'fadeIn 0.25s ease-out',
           }}
         >
-          <Link href="#inicio" onClick={() => setMobileMenuOpen(false)} style={{ color: '#f8fafc', textDecoration: 'none', fontSize: '1.1rem' }}>
+          <Link href="#inicio" onClick={() => setMobileMenuOpen(false)} style={{ color: '#f8fafc', textDecoration: 'none', fontSize: '1.05rem', padding: '0.2rem 0' }}>
             Inicio
           </Link>
-          <Link href="#proyectos" onClick={() => setMobileMenuOpen(false)} style={{ color: '#f8fafc', textDecoration: 'none', fontSize: '1.1rem' }}>
-            Proyectos & Trabajos
+          <Link href="#proyectos" onClick={() => setMobileMenuOpen(false)} style={{ color: '#f8fafc', textDecoration: 'none', fontSize: '1.05rem', padding: '0.2rem 0' }}>
+            Proyectos & Trabajos Insignia
           </Link>
-          <Link href="#habilidades" onClick={() => setMobileMenuOpen(false)} style={{ color: '#f8fafc', textDecoration: 'none', fontSize: '1.1rem' }}>
+          <Link href="#habilidades" onClick={() => setMobileMenuOpen(false)} style={{ color: '#f8fafc', textDecoration: 'none', fontSize: '1.05rem', padding: '0.2rem 0' }}>
             Habilidades & Frameworks
           </Link>
-          <Link href="#arquitectura" onClick={() => setMobileMenuOpen(false)} style={{ color: '#f8fafc', textDecoration: 'none', fontSize: '1.1rem' }}>
-            Filosofía & Arquitectura
+          <Link href="#arquitectura" onClick={() => setMobileMenuOpen(false)} style={{ color: '#f8fafc', textDecoration: 'none', fontSize: '1.05rem', padding: '0.2rem 0' }}>
+            Filosofía & Arquitectura Resiliente
           </Link>
-          <Link href="#testimonios" onClick={() => setMobileMenuOpen(false)} style={{ color: '#f8fafc', textDecoration: 'none', fontSize: '1.1rem' }}>
+          <Link href="#testimonios" onClick={() => setMobileMenuOpen(false)} style={{ color: '#f8fafc', textDecoration: 'none', fontSize: '1.05rem', padding: '0.2rem 0' }}>
             Casos de Éxito & Testimonios
           </Link>
-          <Link href="/cv" onClick={() => setMobileMenuOpen(false)} style={{ color: '#818cf8', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <FileText size={18} />
-            <span>Ver Currículum (PDF)</span>
-          </Link>
-          <Link href="#contacto" onClick={() => setMobileMenuOpen(false)} style={{ color: '#06b6d4', textDecoration: 'none', fontSize: '1.1rem', fontWeight: 600 }}>
-            Enviar Especificaciones / Contacto
-          </Link>
+          <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+            <Link
+              href="/cv"
+              onClick={() => setMobileMenuOpen(false)}
+              className="btn btn-secondary"
+              style={{ width: '100%', justifyContent: 'center', padding: '0.75rem' }}
+            >
+              <FileText size={16} color="#06b6d4" />
+              <span>Ver Currículum Vitae (PDF)</span>
+            </Link>
+            <Link
+              href="#contacto"
+              onClick={() => setMobileMenuOpen(false)}
+              className="btn btn-primary shimmer-btn"
+              style={{ width: '100%', justifyContent: 'center', padding: '0.75rem' }}
+            >
+              <span>Enviar Especificaciones / Cotizar</span>
+              <ArrowUpRight size={16} />
+            </Link>
+          </div>
         </div>
       )}
 
