@@ -9,7 +9,9 @@ export default function ContactSection() {
     name: '',
     email: '',
     projectType: 'PWA / Aplicación Web Progresiva',
+    customProjectType: '',
     budget: '$4,500 - $10,500 MXN',
+    customBudget: '',
     timeline: '1 Mes',
     specifications: '',
   });
@@ -32,12 +34,31 @@ export default function ContactSection() {
     let isSuccess = false;
     let successMsg = '¡Propuesta enviada con éxito! He recibido tus requerimientos directamente en mi bandeja y te responderé en menos de 24 horas.';
 
+    const finalProjectType =
+      formData.projectType === 'Otro'
+        ? (formData.customProjectType.trim() ? `Otro: ${formData.customProjectType.trim()}` : 'Otro (Personalizado)')
+        : formData.projectType;
+
+    const finalBudget =
+      formData.budget === 'Otro'
+        ? (formData.customBudget.trim() ? formData.customBudget.trim() : 'Personalizado / A convenir')
+        : formData.budget;
+
+    const submissionPayload = {
+      name: formData.name,
+      email: formData.email,
+      projectType: finalProjectType,
+      budget: finalBudget,
+      timeline: formData.timeline,
+      specifications: formData.specifications,
+    };
+
     try {
       // 1. Envío prioritario a través del endpoint interno /api/contact
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submissionPayload),
       });
 
       const data = await res.json();
@@ -58,18 +79,18 @@ export default function ContactSection() {
             Accept: 'application/json',
           },
           body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            _subject: `🚀 Nueva Propuesta de Proyecto: ${formData.projectType} - de ${formData.name}`,
-            _replyto: formData.email,
+            name: submissionPayload.name,
+            email: submissionPayload.email,
+            _subject: `🚀 Nueva Propuesta de Proyecto: ${submissionPayload.projectType} - de ${submissionPayload.name}`,
+            _replyto: submissionPayload.email,
             _captcha: 'false',
             _template: 'table',
-            'Nombre del Cliente': formData.name,
-            'Correo de Contacto': formData.email,
-            'Tipo de Proyecto': formData.projectType,
-            'Rango de Presupuesto': formData.budget,
-            'Tiempo Estimado': formData.timeline,
-            'Especificaciones del Proyecto': formData.specifications,
+            'Nombre del Cliente': submissionPayload.name,
+            'Correo de Contacto': submissionPayload.email,
+            'Tipo de Proyecto': submissionPayload.projectType,
+            'Rango de Presupuesto': submissionPayload.budget,
+            'Tiempo Estimado': submissionPayload.timeline,
+            'Especificaciones del Proyecto': submissionPayload.specifications,
           }),
         });
 
@@ -102,7 +123,9 @@ export default function ContactSection() {
         name: '',
         email: '',
         projectType: 'PWA / Aplicación Web Progresiva',
+        customProjectType: '',
         budget: '$4,500 - $10,500 MXN',
+        customBudget: '',
         timeline: '1 Mes',
         specifications: '',
       });
@@ -355,7 +378,26 @@ export default function ContactSection() {
                     <option value="Automatización n8n & Agentes IA">Automatización n8n & Agentes IA</option>
                     <option value="Plataforma E-Commerce / Full-Stack">Plataforma E-Commerce / Full-Stack</option>
                     <option value="Consultoría de Arquitectura & Calidad ISO">Consultoría de Arquitectura & Calidad</option>
+                    <option value="Otro">Otro (Especificar lo que necesitas...)</option>
                   </select>
+
+                  {formData.projectType === 'Otro' && (
+                    <div style={{ marginTop: '0.65rem' }}>
+                      <input
+                        type="text"
+                        name="customProjectType"
+                        required
+                        placeholder="Escribe el tipo de proyecto que necesitas (ej. App iOS/Android, API...)"
+                        value={formData.customProjectType}
+                        onChange={handleChange}
+                        className="form-input"
+                        style={{
+                          borderColor: 'rgba(6, 182, 212, 0.45)',
+                          background: 'rgba(6, 182, 212, 0.05)',
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
 
                 {/* Presupuesto */}
@@ -375,7 +417,26 @@ export default function ContactSection() {
                     <option value="$10,500 - $21,000 MXN">$10,500 - $21,000 MXN (Avanzado / Sistema)</option>
                     <option value="$21,000+ MXN">$21,000+ MXN (Empresarial / Alta Escala)</option>
                     <option value="Por definir / A convenir">Por definir / A convenir</option>
+                    <option value="Otro">Otro (Ingresar mi presupuesto personalizado...)</option>
                   </select>
+
+                  {formData.budget === 'Otro' && (
+                    <div style={{ marginTop: '0.65rem' }}>
+                      <input
+                        type="text"
+                        name="customBudget"
+                        required
+                        placeholder="Ingresa tu presupuesto estimado (ej. $8,000 MXN, $400 USD...)"
+                        value={formData.customBudget}
+                        onChange={handleChange}
+                        className="form-input"
+                        style={{
+                          borderColor: 'rgba(16, 185, 129, 0.45)',
+                          background: 'rgba(16, 185, 129, 0.05)',
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
 
