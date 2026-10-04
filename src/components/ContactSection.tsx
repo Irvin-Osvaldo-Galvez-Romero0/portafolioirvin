@@ -29,7 +29,11 @@ export default function ContactSection() {
     setIsSubmitting(true);
     setStatusMessage(null);
 
+    let isSuccess = false;
+    let successMsg = '¡Propuesta enviada con éxito! He recibido tus requerimientos directamente en mi bandeja y te responderé en menos de 24 horas.';
+
     try {
+      // 1. Envío prioritario a través del endpoint interno /api/contact
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -38,10 +42,48 @@ export default function ContactSection() {
 
       const data = await res.json();
 
-      if (!res.ok) {
-        throw new Error(data.error || 'Ocurrió un error al enviar el formulario.');
+      if (res.ok && data.success) {
+        isSuccess = true;
+        if (data.message) successMsg = data.message;
+      } else {
+        throw new Error(data.error || 'Error al procesar en servidor');
       }
+    } catch {
+      // 2. Respaldo directo en el navegador con FormSubmit para garantizar entrega 100% automática a tu correo
+      try {
+        const directRes = await fetch('https://formsubmit.co/ajax/irvinosvaldo.gr@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            _subject: `🚀 Nueva Propuesta de Proyecto: ${formData.projectType} - de ${formData.name}`,
+            _replyto: formData.email,
+            _captcha: 'false',
+            _template: 'table',
+            'Nombre del Cliente': formData.name,
+            'Correo de Contacto': formData.email,
+            'Tipo de Proyecto': formData.projectType,
+            'Rango de Presupuesto': formData.budget,
+            'Tiempo Estimado': formData.timeline,
+            'Especificaciones del Proyecto': formData.specifications,
+          }),
+        });
 
+        const directData = await directRes.json();
+        if (directRes.ok && (directData.success === 'true' || directData.success === true)) {
+          isSuccess = true;
+          successMsg = '¡Propuesta enviada con éxito! He recibido tus requerimientos directamente en mi bandeja y te responderé en menos de 24 horas.';
+        }
+      } catch (directErr) {
+        console.error('Error en envío de respaldo:', directErr);
+      }
+    }
+
+    if (isSuccess) {
       // Disparar confeti de celebración
       confetti({
         particleCount: 80,
@@ -52,8 +94,7 @@ export default function ContactSection() {
 
       setStatusMessage({
         type: 'success',
-        text: data.message || '¡Mensaje y especificaciones enviados con éxito!',
-        mailtoFallback: data.details?.mailtoFallback,
+        text: successMsg,
       });
 
       // Limpiar formulario si fue exitoso
@@ -65,15 +106,15 @@ export default function ContactSection() {
         timeline: '1 Mes',
         specifications: '',
       });
-    } catch (err: unknown) {
-      const error = err as Error;
+    } else {
       setStatusMessage({
         type: 'error',
-        text: error.message || 'Hubo un error al conectar con el servicio.',
+        text: 'Hubo una dificultad de red temporal al procesar el envío. Puedes escribirme directamente a irvinosvaldo.gr@gmail.com.',
+        mailtoFallback: `mailto:irvinosvaldo.gr@gmail.com?subject=Propuesta de ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.specifications)}`,
       });
-    } finally {
-      setIsSubmitting(false);
     }
+
+    setIsSubmitting(false);
   };
 
   return (
@@ -247,7 +288,7 @@ export default function ContactSection() {
                   <span style={{ fontSize: '0.92rem', fontWeight: 600 }}>{statusMessage.text}</span>
                 </div>
 
-                {statusMessage.mailtoFallback && (
+                {statusMessage.type === 'error' && statusMessage.mailtoFallback && (
                   <a
                     href={statusMessage.mailtoFallback}
                     className="btn btn-outline-cyan"
@@ -392,7 +433,7 @@ export default function ContactSection() {
                 ) : (
                   <>
                     <Send size={18} />
-                    <span>Enviar Especificaciones a mi Correo</span>
+                    <span>Enviar Propuesta de Proyecto</span>
                   </>
                 )}
               </button>
