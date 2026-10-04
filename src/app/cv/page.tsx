@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import {
   ArrowLeft,
@@ -16,67 +16,11 @@ import {
   Sparkles,
   ExternalLink,
   MessageCircle,
-  Copy,
-  Check,
-  X,
-  Send,
 } from 'lucide-react';
 import GithubIcon from '@/components/GithubIcon';
 import LinkedinIcon from '@/components/LinkedinIcon';
 
 export default function ResumePage() {
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [emailCopied, setEmailCopied] = useState(false);
-
-  const emailAddress = 'irvinosvaldogalvezromero@gmail.com';
-  const emailSubject = 'Oportunidad Laboral / Contacto Profesional — Irvin Gálvez';
-  const emailBody = `Hola Irvin,
-
-Revisé tu Currículum Vitae y perfil profesional como Full Stack Developer & Software Engineer y me gustaría ponerme en contacto contigo para conversar sobre una oportunidad.
-
-• Empresa / Proyecto: 
-• Vacante o Tipo de Colaboración: 
-• Modalidad / Disponibilidad: 
-
-Quedo a la espera de tu respuesta.
-
-Saludos cordiales,`;
-
-  const mailtoUrl = `mailto:${emailAddress}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-  const gmailWebUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(emailAddress)}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-  const outlookWebUrl = `https://outlook.live.com/mail/0/deeplink/compose?to=${encodeURIComponent(emailAddress)}&subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-  const whatsappUrl = `https://wa.me/525536739121?text=${encodeURIComponent('Hola Irvin, vi tu CV y me gustaría conversar sobre una oportunidad como Full Stack Developer.')}`;
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setIsContactModalOpen(false);
-      }
-    };
-    if (isContactModalOpen) {
-      window.addEventListener('keydown', handleKeyDown);
-    }
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isContactModalOpen]);
-
-  const copyTemplate = () => {
-    const textToCopy = `Para: ${emailAddress}\nAsunto: ${emailSubject}\n\n${emailBody}`;
-    if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText(textToCopy);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 3000);
-    }
-  };
-
-  const copyEmailOnly = () => {
-    if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText(emailAddress);
-      setEmailCopied(true);
-      setTimeout(() => setEmailCopied(false), 2500);
-    }
-  };
-
   const handlePrint = () => {
     window.print();
   };
@@ -115,7 +59,7 @@ Saludos cordiales,`;
             <span>Imprimir / Guardar PDF</span>
           </button>
           <a
-            href={whatsappUrl}
+            href="https://wa.me/525536739121?text=Hola%20Irvin,%20vi%20tu%20CV%20y%20me%20gustar%C3%ADa%20conversar%20sobre%20una%20oportunidad"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-secondary"
@@ -124,16 +68,6 @@ Saludos cordiales,`;
             <MessageCircle size={16} />
             <span>WhatsApp</span>
           </a>
-          <button
-            type="button"
-            onClick={() => setIsContactModalOpen(true)}
-            className="btn btn-outline-cyan shimmer-btn"
-            style={{ padding: '0.6rem 1.1rem', fontSize: '0.88rem', cursor: 'pointer' }}
-            title="Abrir opciones de contacto y enviar correo con plantilla"
-          >
-            <Mail size={16} />
-            <span>Contactar (Correo)</span>
-          </button>
         </div>
       </div>
 
@@ -204,24 +138,9 @@ Saludos cordiales,`;
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
               <Mail size={14} color="#818cf8" />
-              <button
-                type="button"
-                onClick={() => setIsContactModalOpen(true)}
-                title="Click para enviar correo o ver opciones de contacto"
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  padding: 0,
-                  color: '#38bdf8',
-                  textDecoration: 'underline',
-                  wordBreak: 'break-all',
-                  cursor: 'pointer',
-                  fontSize: 'inherit',
-                  fontFamily: 'inherit',
-                }}
-              >
+              <a href="mailto:irvinosvaldogalvezromero@gmail.com" style={{ color: '#38bdf8', textDecoration: 'none', wordBreak: 'break-all' }}>
                 irvinosvaldogalvezromero@gmail.com
-              </button>
+              </a>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
@@ -467,311 +386,6 @@ Saludos cordiales,`;
           <span>Página 1 de 1</span>
         </footer>
       </article>
-
-      {/* Contact Options Modal (Solución 100% confiable para mailto y webmail) */}
-      {isContactModalOpen && (
-        <div
-          className="no-print"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="contact-modal-title"
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 9999,
-            backgroundColor: 'rgba(2, 6, 23, 0.85)',
-            backdropFilter: 'blur(8px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '1rem',
-          }}
-          onClick={() => setIsContactModalOpen(false)}
-        >
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              maxWidth: '560px',
-              backgroundColor: '#0c1222',
-              border: '1px solid rgba(56, 189, 248, 0.35)',
-              borderRadius: '20px',
-              padding: 'clamp(1.2rem, 3.5vw, 1.85rem)',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 35px rgba(6, 182, 212, 0.2)',
-              color: '#f8fafc',
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Modal Header */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.1rem' }}>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.3rem' }}>
-                  <div
-                    style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '10px',
-                      background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(99, 102, 241, 0.2))',
-                      border: '1px solid rgba(56, 189, 248, 0.4)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#38bdf8',
-                    }}
-                  >
-                    <Mail size={18} />
-                  </div>
-                  <h3 id="contact-modal-title" style={{ fontSize: '1.28rem', fontWeight: 700, color: '#ffffff', margin: 0 }}>
-                    Enviar Correo a Irvin
-                  </h3>
-                </div>
-                <p style={{ fontSize: '0.84rem', color: '#94a3b8', margin: 0 }}>
-                  Mensaje predeterminado listo con asunto y datos de vacante
-                </p>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setIsContactModalOpen(false)}
-                aria-label="Cerrar ventana"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  borderRadius: '8px',
-                  width: '32px',
-                  height: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#94a3b8',
-                  cursor: 'pointer',
-                }}
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            {/* Explanatory note */}
-            <div
-              style={{
-                background: 'rgba(6, 182, 212, 0.08)',
-                border: '1px solid rgba(6, 182, 212, 0.2)',
-                borderRadius: '10px',
-                padding: '0.65rem 0.85rem',
-                fontSize: '0.78rem',
-                color: '#bae6fd',
-                lineHeight: 1.45,
-                marginBottom: '1rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-              }}
-            >
-              <Sparkles size={16} color="#38bdf8" style={{ flexShrink: 0 }} />
-              <span>
-                <strong>¿Por qué no abría antes?</strong> En Windows o navegador, si no tienes una app de correo nativa configurada, el enlace se bloquea. Con las opciones de abajo puedes redactar directo en <strong>Gmail Web</strong>, tu app o copiar la plantilla.
-              </span>
-            </div>
-
-            {/* Recipient badge */}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '0.6rem 0.85rem',
-                background: 'rgba(15, 23, 42, 0.75)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                borderRadius: '10px',
-                marginBottom: '0.9rem',
-                fontSize: '0.85rem',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', overflow: 'hidden' }}>
-                <span style={{ color: '#64748b', fontWeight: 600 }}>Para:</span>
-                <span style={{ color: '#38bdf8', fontWeight: 600, textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                  {emailAddress}
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={copyEmailOnly}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: emailCopied ? '#34d399' : '#94a3b8',
-                  cursor: 'pointer',
-                  fontSize: '0.8rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.3rem',
-                }}
-              >
-                {emailCopied ? <Check size={14} /> : <Copy size={14} />}
-                <span>{emailCopied ? '¡Copiado!' : 'Copiar'}</span>
-              </button>
-            </div>
-
-            {/* Preview Box */}
-            <div style={{ marginBottom: '1.15rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
-                <span style={{ fontSize: '0.76rem', color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  Vista previa de la plantilla
-                </span>
-                <button
-                  type="button"
-                  onClick={copyTemplate}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: copied ? '#34d399' : '#38bdf8',
-                    cursor: 'pointer',
-                    fontSize: '0.78rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.3rem',
-                  }}
-                >
-                  {copied ? <Check size={13} /> : <Copy size={13} />}
-                  <span>{copied ? '¡Plantilla copiada!' : 'Copiar mensaje'}</span>
-                </button>
-              </div>
-              <div
-                style={{
-                  background: 'rgba(15, 23, 42, 0.6)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  borderRadius: '10px',
-                  padding: '0.7rem 0.85rem',
-                  fontSize: '0.8rem',
-                  lineHeight: 1.45,
-                  color: '#cbd5e1',
-                  maxHeight: '125px',
-                  overflowY: 'auto',
-                  whiteSpace: 'pre-wrap',
-                }}
-              >
-                <div style={{ color: '#a5b4fc', fontWeight: 600, marginBottom: '0.3rem' }}>
-                  Asunto: {emailSubject}
-                </div>
-                {emailBody}
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-              {/* Option 1: Gmail Web (The most reliable for desktop browser users) */}
-              <a
-                href={gmailWebUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary shimmer-btn"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.6rem',
-                  padding: '0.75rem 1rem',
-                  fontSize: '0.92rem',
-                  fontWeight: 600,
-                  textDecoration: 'none',
-                  borderRadius: '10px',
-                }}
-              >
-                <Mail size={18} />
-                <span>Abrir en Gmail Web (Recomendado)</span>
-                <ExternalLink size={15} style={{ opacity: 0.8 }} />
-              </a>
-
-              {/* Option 2: Web Outlook Deeplink */}
-              <a
-                href={outlookWebUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-secondary"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.6rem',
-                  padding: '0.65rem 1rem',
-                  fontSize: '0.86rem',
-                  textDecoration: 'none',
-                  borderRadius: '10px',
-                  borderColor: 'rgba(99, 102, 241, 0.3)',
-                  color: '#c7d2fe',
-                }}
-              >
-                <span>Abrir en Outlook Web</span>
-                <ExternalLink size={14} style={{ opacity: 0.7 }} />
-              </a>
-
-              {/* Option 3: Default Native Mail Client (mailto) */}
-              <a
-                href={mailtoUrl}
-                className="btn btn-secondary"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.6rem',
-                  padding: '0.65rem 1rem',
-                  fontSize: '0.86rem',
-                  textDecoration: 'none',
-                  borderRadius: '10px',
-                  borderColor: 'rgba(255, 255, 255, 0.12)',
-                }}
-              >
-                <Send size={15} color="#38bdf8" />
-                <span>Abrir en App Nativa (Mail / Windows / Mac)</span>
-              </a>
-
-              {/* Bottom Quick Row: Copy text & WhatsApp */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem', marginTop: '0.2rem' }}>
-                <button
-                  type="button"
-                  onClick={copyTemplate}
-                  className="btn btn-secondary"
-                  style={{
-                    padding: '0.6rem 0.8rem',
-                    fontSize: '0.82rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.4rem',
-                    borderRadius: '10px',
-                    cursor: 'pointer',
-                  }}
-                >
-                  {copied ? <Check size={14} color="#34d399" /> : <Copy size={14} />}
-                  <span>{copied ? '¡Copiado!' : 'Copiar Plantilla'}</span>
-                </button>
-
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-secondary"
-                  style={{
-                    padding: '0.6rem 0.8rem',
-                    fontSize: '0.82rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.4rem',
-                    color: '#34d399',
-                    borderColor: 'rgba(16, 185, 129, 0.3)',
-                    borderRadius: '10px',
-                    textDecoration: 'none',
-                  }}
-                >
-                  <MessageCircle size={14} />
-                  <span>WhatsApp</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Estilos dedicados de pantalla y de impresión (Pixel-Perfect A4/Letter) */}
       <style jsx>{`
