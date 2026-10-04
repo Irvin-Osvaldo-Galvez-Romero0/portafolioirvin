@@ -53,54 +53,69 @@ export default function ContactSection() {
       specifications: formData.specifications,
     };
 
+    // 1. Envío directo desde el navegador (Client-Side) a FormSubmit
+    // Al originarse en la IP residencial/móvil real del visitante, no es bloqueado por centros de datos
     try {
-      // 1. Envío prioritario a través del endpoint interno /api/contact
-      const res = await fetch('/api/contact', {
+      const directRes = await fetch('https://formsubmit.co/ajax/irvinosvaldo.gr@gmail.com', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(submissionPayload),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: submissionPayload.name,
+          email: submissionPayload.email,
+          _subject: `🚀 Nueva Propuesta de Proyecto: ${submissionPayload.projectType} - de ${submissionPayload.name}`,
+          _replyto: submissionPayload.email,
+          _captcha: 'false',
+          _template: 'table',
+          'Nombre del Cliente': submissionPayload.name,
+          'Correo de Contacto': submissionPayload.email,
+          'Tipo de Proyecto': submissionPayload.projectType,
+          'Rango de Presupuesto': submissionPayload.budget,
+          'Tiempo Estimado': submissionPayload.timeline,
+          'Especificaciones del Proyecto': submissionPayload.specifications,
+        }),
       });
 
-      const data = await res.json();
-
-      if (res.ok && data.success) {
-        isSuccess = true;
-        if (data.message) successMsg = data.message;
-      } else {
-        throw new Error(data.error || 'Error al procesar en servidor');
-      }
-    } catch {
-      // 2. Respaldo directo en el navegador con FormSubmit para garantizar entrega 100% automática a tu correo
+      const responseText = await directRes.text();
+      let directData: { success?: string | boolean; message?: string } = {};
       try {
-        const directRes = await fetch('https://formsubmit.co/ajax/irvinosvaldo.gr@gmail.com', {
+        directData = JSON.parse(responseText);
+      } catch {
+        // En caso de respuesta con formato mixto
+      }
+
+      if (directRes.ok && (directData.success === 'true' || directData.success === true || responseText.includes('"success":"true"'))) {
+        isSuccess = true;
+      }
+    } catch (directErr) {
+      console.warn('Envío directo desde navegador no completado, intentando endpoint interno...', directErr);
+    }
+
+    // 2. Si el envío directo tuvo algún detalle de red, probar a través del endpoint interno /api/contact
+    if (!isSuccess) {
+      try {
+        const res = await fetch('/api/contact', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: JSON.stringify({
-            name: submissionPayload.name,
-            email: submissionPayload.email,
-            _subject: `🚀 Nueva Propuesta de Proyecto: ${submissionPayload.projectType} - de ${submissionPayload.name}`,
-            _replyto: submissionPayload.email,
-            _captcha: 'false',
-            _template: 'table',
-            'Nombre del Cliente': submissionPayload.name,
-            'Correo de Contacto': submissionPayload.email,
-            'Tipo de Proyecto': submissionPayload.projectType,
-            'Rango de Presupuesto': submissionPayload.budget,
-            'Tiempo Estimado': submissionPayload.timeline,
-            'Especificaciones del Proyecto': submissionPayload.specifications,
-          }),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(submissionPayload),
         });
 
-        const directData = await directRes.json();
-        if (directRes.ok && (directData.success === 'true' || directData.success === true)) {
-          isSuccess = true;
-          successMsg = '¡Propuesta enviada con éxito! He recibido tus requerimientos directamente en mi bandeja y te responderé en menos de 24 horas.';
+        const text = await res.text();
+        let data: { success?: boolean; message?: string } = {};
+        try {
+          data = JSON.parse(text);
+        } catch {
+          //
         }
-      } catch (directErr) {
-        console.error('Error en envío de respaldo:', directErr);
+
+        if (res.ok && data.success) {
+          isSuccess = true;
+          if (data.message) successMsg = data.message;
+        }
+      } catch (err) {
+        console.error('Error en endpoint secundario:', err);
       }
     }
 

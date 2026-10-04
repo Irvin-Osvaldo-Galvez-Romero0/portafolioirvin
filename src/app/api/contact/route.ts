@@ -146,8 +146,15 @@ Fecha: ${new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' })
         }),
       });
 
-      const fsData = await formSubmitRes.json();
-      if (formSubmitRes.ok && (fsData.success === 'true' || fsData.success === true)) {
+      const responseText = await formSubmitRes.text();
+      let fsData: { success?: string | boolean; message?: string } = {};
+      try {
+        fsData = JSON.parse(responseText);
+      } catch {
+        // En caso de que un CDN responda con texto o HTML
+      }
+
+      if (formSubmitRes.ok && (fsData.success === 'true' || fsData.success === true || responseText.includes('"success":"true"'))) {
         return NextResponse.json({
           success: true,
           provider: 'formsubmit',
@@ -155,16 +162,16 @@ Fecha: ${new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' })
         });
       }
 
-      console.warn('FormSubmit no retornó éxito:', fsData);
+      console.warn('FormSubmit serverless no retornó confirmación JSON:', responseText.slice(0, 80));
     } catch (err) {
-      console.error('Error enviando con FormSubmit:', err);
+      console.warn('Advertencia en intento serverless con FormSubmit:', err);
     }
 
-    // 4. Si los servicios automáticos fallaron temporalmente por red, confirmar recepción y proveer respaldo
+    // 4. Si el servidor no pudo entregar directamente por bloqueo de IP de centro de datos, indicarlo al cliente
     return NextResponse.json({
-      success: true,
-      provider: 'acknowledged',
-      message: '¡Propuesta recibida! Me pondré en contacto contigo lo más pronto posible.',
+      success: false,
+      provider: 'needs-client-dispatch',
+      message: 'Intento de servidor completado, solicitando envío directo desde navegador.',
     });
   } catch (error) {
     console.error('Error en el servidor de contacto:', error);
